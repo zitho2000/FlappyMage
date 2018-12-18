@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class FlappyWizardGame extends Game {
+
 	
 	public SpriteBatch batch;
 	
