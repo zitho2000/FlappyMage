@@ -20,7 +20,7 @@ public class GameScreen implements Screen {
     }
 
     Mage mage = new Mage(200, 200);
-    Item item = new Item(100, 400);
+    Item item = new Item(200, 400);
 
     @Override
     public void render(float delta) {
@@ -37,6 +37,9 @@ public class GameScreen implements Screen {
         }
         if (mage.hitbox.overlaps(item.hitbox)) {
             item.turnRed();
+        }
+        if (mage.hitbox.overlaps(item.hitbox)==false){
+            item.turnBlue();
         }
         game.batch.begin();
         game.batch.draw(game.harry

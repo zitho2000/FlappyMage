@@ -13,8 +13,9 @@ public class Item {
      public Item(int x,int y){
          position=new Vector2(x,y);
          texture=new Texture( "core/assets/png/item_blau.png");
-         hitbox=new Rectangle(position.x,position.y,texture.getWidth(),texture.getHeight());
-         size=new Vector2(hitbox.width,hitbox.height);
+
+         size=new Vector2(texture.getWidth()*0.125f,texture.getHeight()*0.125f);
+         hitbox=new Rectangle(position.x,position.y,size.x,size.y);
      }
 
     public Vector2 getPosition() {
@@ -26,5 +27,8 @@ public class Item {
     }
     public void turnRed(){
          texture=new Texture("core/assets/png/item_rot.png");
+    }
+    public void turnBlue(){
+        texture=new Texture("core/assets/png/item_blau.png");
     }
 }

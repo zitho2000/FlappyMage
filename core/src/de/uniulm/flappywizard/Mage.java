@@ -42,9 +42,11 @@ public class Mage {
 
     public void fall() {
         position.y -= GRAVITY;
+        hitbox.y-= GRAVITY;
     }
 
     public void flyUp() {
         position.y += UP;
+        hitbox.y+=UP;
     }
 }
