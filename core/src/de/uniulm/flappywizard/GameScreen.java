@@ -32,6 +32,7 @@ public class GameScreen implements Screen {
         int harry_height = (int) (game.harry.getHeight() * 0.125);
 
         mage.fall();
+        item.setPosition(item.getPosition().x-2,item.getPosition().y);
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             mage.flyUp();
         }

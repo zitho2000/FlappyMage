@@ -29,6 +29,8 @@ public class Item {
 
     public void setPosition(float x,float y) {
         this.position = new Vector2(x,y);
+        this.hitbox.x=x;
+        this.hitbox.y=y;
     }
     public void turnRed(){
          texture=texturer;
