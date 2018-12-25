@@ -12,7 +12,7 @@ public class Mage {
     private boolean alive;
     private Vector2 size;
     public Rectangle hitbox;
-    private Texture texture;
+    public Texture texture;
 
     public Mage(int x, int y) {
         position = new Vector2(x, y);

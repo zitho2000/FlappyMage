@@ -9,8 +9,13 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 public class GameScreen implements Screen {
 
     final FlappyWizardGame game;
+    final int SCROLLSPEED = 5;
 
     OrthographicCamera camera;
+    Mage mage = new Mage(200, 200);
+    Dementor dementor = new Dementor(300, 0);
+    Tower tower = new Tower(300, 432423);
+    Troll troll = new Troll(300, 300);
 
     public GameScreen(FlappyWizardGame game) {
         this.game = game;
@@ -19,42 +24,45 @@ public class GameScreen implements Screen {
         camera.setToOrtho(false, 1280, 720);
     }
 
-    Mage mage = new Mage(200, 200);
-    Item item = new Item(200, 400);
-
     @Override
     public void render(float delta) {
         // TODO Auto-generated method stub
         Gdx.gl.glClearColor(0, 0.5f, 0.5f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        int harry_width = (int) (game.harry.getWidth() * 0.125);
-        int harry_height = (int) (game.harry.getHeight() * 0.125);
 
+        dementor.moveLeft(SCROLLSPEED);
         mage.fall();
-        item.setPosition(item.getPosition().x-2,item.getPosition().y);
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             mage.flyUp();
         }
-        if (mage.hitbox.overlaps(item.hitbox)) {
-            item.turnRed();
-        }
-        if (mage.hitbox.overlaps(item.hitbox)==false){
-            item.turnBlue();
-        }
+
         game.batch.begin();
-        game.batch.draw(game.harry
+        game.batch.draw(mage.texture
                 , mage.getPosition().x
                 , mage.getPosition().y
-                , harry_width
-                , harry_height
+                , mage.hitbox.width
+                , mage.hitbox.height
+
         );
-        game.batch.draw(item.texture
-                , item.getPosition().x
-                , item.getPosition().y
-                , item.hitbox.width
-                , item.hitbox.height
+        game.batch.draw(troll.texture
+                , troll.getPosition().x
+                , troll.getPosition().y
+                , troll.hitbox.width
+                , troll.hitbox.height);
+        game.batch.draw(dementor.texture
+                , dementor.getPosition().x
+                , dementor.getPosition().y
+                , dementor.hitbox.width
+                , dementor.hitbox.height
         );
+        game.batch.draw(tower.texture
+                , tower.getPosition().x
+                , tower.getPosition().y
+                , tower.hitbox.width
+                , tower.hitbox.height
+        );
+
         game.batch.end();
 
     }
