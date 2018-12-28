@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Tower extends Obstacle{
-    public Texture texture;
+
 
     public Tower(float x, float y) {
         super(x,0);
@@ -24,4 +24,7 @@ public class Tower extends Obstacle{
         this.hitbox=new Rectangle(x,y,texture.getWidth()*0.125f,texture.getHeight()*0.125f);
         size= new Vector2(texture.getWidth(),texture.getHeight());
     }
+
+
+
 }

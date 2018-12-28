@@ -29,5 +29,6 @@ public class Item {
     }
     public void moveLeft (int x){
          this.setPosition(this.getPosition().x-x,this.getPosition().y);
+         this.hitbox.x-=x;
     }
 }

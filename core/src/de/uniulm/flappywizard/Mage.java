@@ -9,7 +9,7 @@ public class Mage {
     private static final int UP = 50;
 
     private Vector2 position;
-    private boolean alive;
+    public boolean alive;
     private Vector2 size;
     public Rectangle hitbox;
     public Texture texture;
@@ -49,4 +49,8 @@ public class Mage {
         position.y += UP;
         hitbox.y+=UP;
     }
+    public void die(){
+        this.alive=false;
+    }
+
 }
