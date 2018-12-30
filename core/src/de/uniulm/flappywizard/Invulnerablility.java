@@ -7,4 +7,8 @@ public class Invulnerablility extends Item {
         super(x,y);
         this.texture= new Texture("core/assets/png/item_gruen.png");
     }
+
+    void activate() {
+
+    }
 }

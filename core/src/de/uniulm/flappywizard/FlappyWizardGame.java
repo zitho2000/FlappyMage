@@ -11,7 +11,8 @@ public class FlappyWizardGame extends Game {
 
 	
 	public SpriteBatch batch;
-	
+
+
 	public Texture hermine;
 	public Texture harry, luna, malfoy, cedrig;
 	public Texture item_blau, item_gruen, item_rot, item_silber;
@@ -25,6 +26,7 @@ public class FlappyWizardGame extends Game {
 		font = new BitmapFont();
 		
 		hermine = new Texture("core/assets/png/hermine.png");
+
 		
 		harry = new Texture("core/assets/png/harry.png");
 		luna = new Texture("core/assets/png/luna.png");

@@ -7,4 +7,9 @@ public class Troll extends Item {
         super(x,y);
         this.texture= new Texture("core/assets/png/item_blau.png");
     }
+
+    @Override
+    void activate() {
+
+    }
 }

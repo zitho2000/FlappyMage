@@ -11,6 +11,8 @@ public class GameScreen implements Screen {
     final FlappyWizardGame game;
     final int SCROLLSPEED = 5;
 
+    public int sizechange=0;
+
     OrthographicCamera camera;
     Mage mage = new Mage(200, 400);
     Dementor dementor1 = new Dementor(960, 0);
@@ -46,10 +48,8 @@ public class GameScreen implements Screen {
         obstacleRoutine(tower3);
         obstacleRoutine(tower4);
         itemRoutine(troll);
-        mage.fall();
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            mage.flyUp();
-        }
+        wizardRoutine(mage);
+
 
         game.batch.begin();
 
@@ -106,11 +106,13 @@ public class GameScreen implements Screen {
         }
         if (wizard.getPosition().y <= 0) {
             mage.die();
+            dispose();
+            game.setScreen(new MainMenuScreen(game));
 
         }
         if (mage.alive== false){
             game.setScreen(new MainMenuScreen(game));
-            System.exit(0);
+            dispose();
         }
     }
 
@@ -133,6 +135,7 @@ public class GameScreen implements Screen {
         item.moveLeft(SCROLLSPEED);
         if (item.hitbox.overlaps(mage.hitbox)) {
             System.out.println("collected");
+
 
         }
     }

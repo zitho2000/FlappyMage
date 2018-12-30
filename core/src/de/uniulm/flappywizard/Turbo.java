@@ -9,4 +9,7 @@ public class Turbo extends Item {
         super(x,y);
         this.texture= new Texture("core/assets/png/item_rot.png");
     }
+    void activate() {
+
+    }
 }

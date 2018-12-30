@@ -7,4 +7,7 @@ public class DoublePoints extends Item {
         super(x,y);
         this.texture= new Texture("core/assets/png/item_silber.png");
     }
+    void activate() {
+
+    }
 }

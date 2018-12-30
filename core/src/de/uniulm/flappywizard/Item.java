@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public class Item {
+public abstract class Item {
      private Vector2 position;
      public Rectangle hitbox;
      private Vector2 size;
@@ -31,4 +31,5 @@ public class Item {
          this.setPosition(this.getPosition().x-x,this.getPosition().y);
          this.hitbox.x-=x;
     }
+    abstract void activate();
 }
