@@ -106,8 +106,7 @@ public class GameScreen implements Screen {
         }
         if (wizard.getPosition().y <= 0) {
             mage.die();
-            dispose();
-            game.setScreen(new MainMenuScreen(game));
+
 
         }
         if (mage.alive== false){
