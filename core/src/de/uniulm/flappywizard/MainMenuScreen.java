@@ -96,9 +96,9 @@ public class MainMenuScreen implements Screen {
 
 
 
-        game.batch.begin();
+
         stage.draw();
-        game.batch.end();
+
 
 
 

@@ -79,7 +79,6 @@ public class HelpScreen implements Screen {
     }
 
     @Override
-    public void dispose() {
-
+    public void dispose() {stage.dispose();
     }
 }

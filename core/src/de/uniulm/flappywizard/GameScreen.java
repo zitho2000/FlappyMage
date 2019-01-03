@@ -19,7 +19,7 @@ public class GameScreen implements Screen {
     Dementor dementor2= new Dementor(dementor1.getPosition().x+320,0);
     Dementor dementor3= new Dementor(dementor2.getPosition().x+320,0);
     Dementor dementor4= new Dementor(dementor3.getPosition().x+320,0);
-    Tower tower1 = new Tower(960, 432423);
+    Tower tower1 = new Tower(1900, 432423);
     Tower tower2 = new Tower(tower1.getPosition().x+320,0);
     Tower tower3 = new Tower(tower2.getPosition().x+320,0);
     Tower tower4 = new Tower(tower3.getPosition().x+320,0);
@@ -35,37 +35,38 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
         // TODO Auto-generated method stub
+
         Gdx.gl.glClearColor(0, 0.5f, 0.5f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        if (mage.alive) {
+            obstacleRoutine(dementor1);
+            obstacleRoutine(dementor2);
+            obstacleRoutine(dementor3);
+            obstacleRoutine(dementor4);
+            obstacleRoutine(tower1);
+            obstacleRoutine(tower2);
+            obstacleRoutine(tower3);
+            obstacleRoutine(tower4);
+            itemRoutine(troll);
+            wizardRoutine(mage);
+            System.out.println("render");
 
-        obstacleRoutine(dementor1);
-        obstacleRoutine(dementor2);
-        obstacleRoutine(dementor3);
-        obstacleRoutine(dementor4);
-        obstacleRoutine(tower1);
-        obstacleRoutine(tower2);
-        obstacleRoutine(tower3);
-        obstacleRoutine(tower4);
-        itemRoutine(troll);
-        wizardRoutine(mage);
+            game.batch.begin();
 
+            drawWizard(mage);
+            drawItem(troll);
+            drawObstacle(dementor1);
+            drawObstacle(dementor2);
+            drawObstacle(dementor3);
+            drawObstacle(dementor4);
+            drawObstacle(tower1);
+            drawObstacle(tower2);
+            drawObstacle(tower3);
+            drawObstacle(tower4);
 
-        game.batch.begin();
-
-        drawWizard(mage);
-        drawItem(troll);
-        drawObstacle(dementor1);
-        drawObstacle(dementor2);
-        drawObstacle(dementor3);
-        drawObstacle(dementor4);
-        drawObstacle(tower1);
-        drawObstacle(tower2);
-        drawObstacle(tower3);
-        drawObstacle(tower4);
-
-        game.batch.end();
-
+            game.batch.end();
+        }
     }
 
     @Override
@@ -104,6 +105,7 @@ public class GameScreen implements Screen {
         dementor2.texture.dispose();
         dementor3.texture.dispose();
         dementor4.texture.dispose();
+        System.out.println("dispose");
     }
 
 
@@ -120,6 +122,7 @@ public class GameScreen implements Screen {
         if (mage.alive== false){
             dispose();
             game.setScreen(new MainMenuScreen(game));
+            System.out.println("dead");
 
         }
     }
