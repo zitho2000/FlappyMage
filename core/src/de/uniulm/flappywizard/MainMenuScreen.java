@@ -61,8 +61,19 @@ public class MainMenuScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 System.out.println("clicked");
-                game.setScreen(new GameScreen(game));
                 dispose();
+                game.setScreen(new GameScreen(game));
+
+            }
+        });
+
+        help.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("clicked");
+                dispose();
+                game.setScreen(new HelpScreen(game));
+
             }
         });
 
@@ -79,8 +90,9 @@ public class MainMenuScreen implements Screen {
 
 
 
-        Gdx.gl.glClearColor(0, 0, 0.2f, 1);
+        Gdx.gl.glClearColor(0, 0.5f, 0.5f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
 
 
 

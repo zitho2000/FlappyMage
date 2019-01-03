@@ -95,7 +95,15 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        // TODO Auto-generated method stub
+        mage.texture.dispose();
+        tower1.texture.dispose();
+        tower2.texture.dispose();
+        tower3.texture.dispose();
+        tower4.texture.dispose();
+        dementor1.texture.dispose();
+        dementor2.texture.dispose();
+        dementor3.texture.dispose();
+        dementor4.texture.dispose();
     }
 
 
@@ -110,8 +118,9 @@ public class GameScreen implements Screen {
 
         }
         if (mage.alive== false){
-            game.setScreen(new MainMenuScreen(game));
             dispose();
+            game.setScreen(new MainMenuScreen(game));
+
         }
     }
 
