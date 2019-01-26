@@ -22,9 +22,15 @@ public class Tower extends Obstacle{
             this.texture= new Texture("core/assets/png/turm_slytherin.png");
         }
         this.hitbox=new Rectangle(x,0,texture.getWidth()*0.125f,texture.getHeight()*0.125f* ((float)Math.random()*2));
-        size= new Vector2(texture.getWidth(),texture.getHeight());
+        size= new Vector2(hitbox.getWidth(),hitbox.getHeight());
+
     }
 
+    void reposition(){
 
+        this.hitbox=new Rectangle(this.getPosition().x,0,texture.getWidth()*0.125f,texture.getHeight()*0.125f* ((float)Math.random()*2));
+        size= new Vector2(hitbox.getWidth(),hitbox.getHeight());
+        this.setPosition(1280,0);
+    }
 
 }

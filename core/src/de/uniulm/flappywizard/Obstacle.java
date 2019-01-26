@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public   class Obstacle {
+public abstract   class Obstacle {
     private Vector2 position;
     Vector2 size;
     Rectangle hitbox;
@@ -23,7 +23,7 @@ public   class Obstacle {
         return position;
     }
 
-    public  void setPosition(float x){
+    public  void setPosition(float x,float y){
         this.position.x=x;
         this.hitbox.x=x;
     }
@@ -32,4 +32,5 @@ public   class Obstacle {
         this.position.x-=x;
         this.hitbox.x-=x;
     }
+   abstract void reposition();
 }

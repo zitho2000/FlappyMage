@@ -5,12 +5,16 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Rectangle;
 
 public class GameScreen implements Screen {
 
     final FlappyWizardGame game;
-    final int SCROLLSPEED = 5;
 
+    public int speed;
+    public int gravity=0;
+
+    public int counter=10;
     public int sizechange=0;
 
     OrthographicCamera camera;
@@ -19,17 +23,25 @@ public class GameScreen implements Screen {
     Dementor dementor2= new Dementor(dementor1.getPosition().x+320,0);
     Dementor dementor3= new Dementor(dementor2.getPosition().x+320,0);
     Dementor dementor4= new Dementor(dementor3.getPosition().x+320,0);
-    Tower tower1 = new Tower(1900, 432423);
+    Tower tower1 = new Tower(960, 432423);
     Tower tower2 = new Tower(tower1.getPosition().x+320,0);
     Tower tower3 = new Tower(tower2.getPosition().x+320,0);
     Tower tower4 = new Tower(tower3.getPosition().x+320,0);
-    Troll troll = new Troll(300, 300);
+
+
+    Troll troll = new Troll();
+    DoublePoints doublePoints=new DoublePoints();
+    Invulnerablility invulnerablility= new Invulnerablility();
+    Turbo turbo= new Turbo();
+
+
 
     public GameScreen(FlappyWizardGame game) {
         this.game = game;
-
+        this.speed=5;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1280, 720);
+        this.turbo.setPosition(800,(float)Math.random()*720);
     }
 
     @Override
@@ -49,13 +61,21 @@ public class GameScreen implements Screen {
             obstacleRoutine(tower3);
             obstacleRoutine(tower4);
             itemRoutine(troll);
+            itemRoutine(turbo);
+            itemRoutine(invulnerablility);
+            itemRoutine(doublePoints);
             wizardRoutine(mage);
-            System.out.println("render");
 
+            itemHandling();
+
+            System.out.println(speed);
             game.batch.begin();
 
             drawWizard(mage);
             drawItem(troll);
+            drawItem(invulnerablility);
+            drawItem(turbo);
+            drawItem(doublePoints);
             drawObstacle(dementor1);
             drawObstacle(dementor2);
             drawObstacle(dementor3);
@@ -105,52 +125,108 @@ public class GameScreen implements Screen {
         dementor2.texture.dispose();
         dementor3.texture.dispose();
         dementor4.texture.dispose();
-        System.out.println("dispose");
+
     }
 
 
     void wizardRoutine(Mage wizard){
-        mage.fall();
+        mage.fall(gravity);
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             mage.flyUp();
         }
         if (wizard.getPosition().y <= 0) {
-            mage.die();
-
-
+           // mage.die();
         }
         if (mage.alive== false){
             dispose();
             game.setScreen(new MainMenuScreen(game));
-            System.out.println("dead");
+
 
         }
     }
 
 
     void obstacleRoutine(Obstacle obstacle) {
-        obstacle.moveLeft(SCROLLSPEED);
+        obstacle.moveLeft(this.speed);
         if (obstacle.hitbox.overlaps(mage.hitbox)) {
             System.out.println("hitted");
-            mage.die();
+            //mage.die();
         }
 
         if (obstacle.getPosition().x+obstacle.hitbox.width <=0){
-            obstacle.setPosition(1280);
+            obstacle.reposition();
+        }
+
+        if (mage.getPosition().x==obstacle.getPosition().x){
+
+                counter++;
+
         }
     }
 
 
 
     void itemRoutine(Item item) {
-        item.moveLeft(SCROLLSPEED);
+        item.moveLeft(this.speed);
         if (item.hitbox.overlaps(mage.hitbox)) {
             System.out.println("collected");
+            counter=0;
+            item.activate();
 
+        }
+        if (counter <= 10){
+            System.out.println("active");
+        }else{
 
+            item.deactivate();
+
+        }
+
+        if (item.hitbox.overlaps(new Rectangle(-100,0,100,720)) || item.hitbox.overlaps(mage.hitbox)){
+            int rng= (int) (Math.random()*4)+1;
+            if (rng == 1){
+                spawn(troll);
+            }
+            if (rng == 2){
+                spawn(turbo);
+            }
+            if (rng == 3){
+                spawn(doublePoints);
+            }
+            if (rng == 4){
+                spawn(invulnerablility);
+            }
         }
     }
 
+    void spawn(Item item){
+        item.setPosition((float)Math.random()*1280+1280,(float)Math.random()*720);
+        if (item.hitbox.overlaps(dementor1.hitbox)||item.hitbox.overlaps(dementor1.hitbox)||item.hitbox.overlaps(dementor2.hitbox)||item.hitbox.overlaps(dementor3.hitbox)||item.hitbox.overlaps(dementor4.hitbox)||item.hitbox.overlaps(tower1.hitbox)||item.hitbox.overlaps(tower2.hitbox)||item.hitbox.overlaps(tower3.hitbox)||item.hitbox.overlaps(tower4.hitbox)){
+            spawn(item);
+        }
+    }
+
+
+    void itemHandling(){
+        speed=5;
+        gravity=5;
+        if (turbo.active){
+            speed=speed*2;
+            gravity = 0;
+            mage.setPosition(mage.getPosition().x,720/2);
+        }
+        if (troll.active){
+
+        }
+        if (invulnerablility.active){
+
+        }
+        if (doublePoints.active){
+
+        }
+
+
+    }
 
 
     void drawObstacle(Obstacle obstacle) {

@@ -3,13 +3,16 @@ package de.uniulm.flappywizard;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Troll extends Item {
-    public Troll(float x,float y){
-        super(x,y);
+    public Troll(){
+        super();
         this.texture= new Texture("core/assets/png/item_blau.png");
     }
 
-    @Override
-    void activate() {
+    public void activate(){
+        this.active=true;
+    }
+    public void deactivate(){
+        this.active= false;
 
     }
 }

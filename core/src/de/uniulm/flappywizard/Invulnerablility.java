@@ -3,12 +3,15 @@ package de.uniulm.flappywizard;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Invulnerablility extends Item {
-    public Invulnerablility(float x,float y){
-        super(x,y);
+    public Invulnerablility(){
+        super();
         this.texture= new Texture("core/assets/png/item_gruen.png");
     }
 
-    void activate() {
-
+   public  void activate() {
+       this.active=true;
+    }
+    public void deactivate(){
+        this.active= false;
     }
 }

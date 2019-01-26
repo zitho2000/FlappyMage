@@ -90,8 +90,8 @@ public class MainMenuScreen implements Screen {
 
 
 
-        /*Gdx.gl.glClearColor(0, 0.5f, 0.5f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);*/
+        Gdx.gl.glClearColor(0, 0.5f, 0.5f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 
 
@@ -131,6 +131,7 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void dispose() {
+
         // TODO Auto-generated method stub
     }
 

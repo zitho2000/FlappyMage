@@ -5,11 +5,18 @@ import com.badlogic.gdx.graphics.Texture;
 public class Turbo extends Item {
 
 
-    public Turbo(float x,float y){
-        super(x,y);
+    public Turbo(){
+        super();
         this.texture= new Texture("core/assets/png/item_rot.png");
     }
-    void activate() {
+    public void activate() {
+    this.active=true;
+
+
+
+    }
+    public void deactivate(){
+        this.active= false;
 
     }
 }

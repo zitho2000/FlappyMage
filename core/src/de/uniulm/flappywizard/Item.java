@@ -9,11 +9,13 @@ public abstract class Item {
      public Rectangle hitbox;
      private Vector2 size;
      public Texture texture;
+     public boolean active;
 
-     public Item(float x,float y){
-         position=new Vector2(x,y);
+     public Item(){
+         this.position=new Vector2(0,100000);
          size =new Vector2(50,50);
-         hitbox= new Rectangle(position.x,position.y,size.x,size.y);
+         this.hitbox=new Rectangle(this.position.x,this.position.y,this.size.x,this.size.y);
+
 
 
      }
@@ -31,5 +33,7 @@ public abstract class Item {
          this.setPosition(this.getPosition().x-x,this.getPosition().y);
          this.hitbox.x-=x;
     }
-    abstract void activate();
+     public abstract void activate();
+     public abstract void deactivate();
+
 }

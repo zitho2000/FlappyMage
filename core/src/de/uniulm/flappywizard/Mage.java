@@ -5,8 +5,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Mage {
-    private static final int GRAVITY = 2;
-    private static final int UP = 50;
+
+    private static final int UP = 80;
 
     private Vector2 position;
     public boolean alive;
@@ -29,6 +29,8 @@ public class Mage {
 
     public void setPosition(float x, float y) {
         this.position = new Vector2(x, y);
+        this.hitbox.x=x;
+        this.hitbox.y=y;
     }
 
     public void setHalfSize() {
@@ -40,9 +42,9 @@ public class Mage {
     }
 
 
-    public void fall() {
-        position.y -= GRAVITY;
-        hitbox.y-= GRAVITY;
+    public void fall(int gravity) {
+        position.y -= gravity;
+        hitbox.y-= gravity;
     }
 
     public void flyUp() {
