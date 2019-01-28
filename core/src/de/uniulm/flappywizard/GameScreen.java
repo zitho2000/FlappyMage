@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 
 public class GameScreen implements Screen {
@@ -14,19 +15,19 @@ public class GameScreen implements Screen {
     public int speed;
     public int gravity=0;
 
-    public int counter=10;
-    public int sizechange=0;
+    public float counter=10;
+    public int sizechange=1;
 
     OrthographicCamera camera;
     Mage mage = new Mage(200, 400);
-    Dementor dementor1 = new Dementor(960, 0);
-    Dementor dementor2= new Dementor(dementor1.getPosition().x+320,0);
-    Dementor dementor3= new Dementor(dementor2.getPosition().x+320,0);
-    Dementor dementor4= new Dementor(dementor3.getPosition().x+320,0);
-    Tower tower1 = new Tower(960, 432423);
-    Tower tower2 = new Tower(tower1.getPosition().x+320,0);
-    Tower tower3 = new Tower(tower2.getPosition().x+320,0);
-    Tower tower4 = new Tower(tower3.getPosition().x+320,0);
+    Dementor dementor1 = new Dementor(900);
+    Dementor dementor2= new Dementor(dementor1.getPosition().x+800);
+    Dementor dementor3= new Dementor(dementor2.getPosition().x+800);
+    Dementor dementor4= new Dementor(dementor3.getPosition().x+800);
+    Tower tower1 = new Tower(500);
+    Tower tower2 = new Tower(tower1.getPosition().x+800);
+    Tower tower3 = new Tower(tower2.getPosition().x+800);
+    Tower tower4 = new Tower(tower3.getPosition().x+800);
 
 
     Troll troll = new Troll();
@@ -48,9 +49,11 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         // TODO Auto-generated method stub
 
-        Gdx.gl.glClearColor(0, 0.5f, 0.5f, 1);
+        Gdx.gl.glClearColor(100/255f, 127/255f, 127/255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        counter=counter+delta;
+        System.out.println(counter);
         if (mage.alive) {
             obstacleRoutine(dementor1);
             obstacleRoutine(dementor2);
@@ -68,7 +71,7 @@ public class GameScreen implements Screen {
 
             itemHandling();
 
-            System.out.println(speed);
+           // System.out.println(speed);
             game.batch.begin();
 
             drawWizard(mage);
@@ -153,13 +156,14 @@ public class GameScreen implements Screen {
             //mage.die();
         }
 
-        if (obstacle.getPosition().x+obstacle.hitbox.width <=0){
+        if (obstacle.getPosition().x+obstacle.size.x <=0){
             obstacle.reposition();
+
         }
 
         if (mage.getPosition().x==obstacle.getPosition().x){
 
-                counter++;
+
 
         }
     }
@@ -175,7 +179,7 @@ public class GameScreen implements Screen {
 
         }
         if (counter <= 10){
-            System.out.println("active");
+           // System.out.println("active");
         }else{
 
             item.deactivate();
@@ -201,7 +205,7 @@ public class GameScreen implements Screen {
     }
 
     void spawn(Item item){
-        item.setPosition((float)Math.random()*1280+1280,(float)Math.random()*720);
+        item.setPosition((float)Math.random()*1280+1280,(float)Math.random()*620+50);
         if (item.hitbox.overlaps(dementor1.hitbox)||item.hitbox.overlaps(dementor1.hitbox)||item.hitbox.overlaps(dementor2.hitbox)||item.hitbox.overlaps(dementor3.hitbox)||item.hitbox.overlaps(dementor4.hitbox)||item.hitbox.overlaps(tower1.hitbox)||item.hitbox.overlaps(tower2.hitbox)||item.hitbox.overlaps(tower3.hitbox)||item.hitbox.overlaps(tower4.hitbox)){
             spawn(item);
         }
@@ -212,9 +216,10 @@ public class GameScreen implements Screen {
         speed=5;
         gravity=5;
         if (turbo.active){
-            speed=speed*2;
+            speed=speed*5;
             gravity = 0;
             mage.setPosition(mage.getPosition().x,720/2);
+            mage.texture=new Texture("core/assets/png/Rakete.png");
         }
         if (troll.active){
 
@@ -230,14 +235,17 @@ public class GameScreen implements Screen {
     }
 
 
+
+
     void drawObstacle(Obstacle obstacle) {
         game.batch.draw(obstacle.texture
                 , obstacle.getPosition().x
                 , obstacle.getPosition().y
-                , obstacle.hitbox.width
-                , obstacle.hitbox.height
+                , obstacle.getSize().x
+                , obstacle.getSize().y
         );
     }
+
 
     void drawItem(Item item) {
         game.batch.draw(item.texture

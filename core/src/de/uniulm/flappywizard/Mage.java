@@ -13,6 +13,8 @@ public class Mage {
     private Vector2 size;
     public Rectangle hitbox;
     public Texture texture;
+    public Texture Rakete;
+
 
     public Mage(int x, int y) {
         position = new Vector2(x, y);

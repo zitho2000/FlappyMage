@@ -7,13 +7,15 @@ import com.badlogic.gdx.math.Vector2;
 public class Dementor extends Obstacle {
 
 
-    public Dementor(float x, float y) {
-        super(x,500);
+    public Dementor(float x) {
+        super(x);
         this.texture= new Texture("core/assets/png/dementor.png");
-        this.hitbox=new Rectangle(this.getPosition().x,this.getPosition().y,texture.getWidth()*0.125f,(texture.getHeight()*0.125f)* ((float)Math.random()*2));
+        this.size=new Vector2(150,300 *((float)Math.random())+200);
+        this.position.y=720-this.getSize().y;
+        this.hitbox=new Rectangle(this.getPosition().x,this.getPosition().y,this.size.x,this.size.y);
 
-        size= new Vector2(hitbox.getWidth(),hitbox.getHeight());
-        this.setPosition(x,720-this.size.y);
+
+
     }
 
     public Texture getTexture() {
@@ -22,11 +24,17 @@ public class Dementor extends Obstacle {
     }
 
     void reposition(){
-        this.hitbox=new Rectangle(this.getPosition().x,this.getPosition().y,texture.getWidth()*0.125f,(texture.getHeight()*0.125f)* ((float)Math.random()*2));
+        float rng =(float)Math.random();
 
-        size= new Vector2(hitbox.getWidth(),hitbox.getHeight());
+        this.size.y=300*rng+200;
 
-        this.setPosition(1280,720-this.size.y);
+        this.setPosition(this.getPosition().x+3200,720-this.getSize().y);
+
+        this.hitbox=new Rectangle(this.getPosition().x,this.getPosition().y,this.size.x,this.size.y);
+
+
+
+
     }
 
 

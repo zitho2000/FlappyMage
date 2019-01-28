@@ -61,6 +61,7 @@ public class MainMenuScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 System.out.println("clicked");
+
                 dispose();
                 game.setScreen(new GameScreen(game));
 
@@ -131,7 +132,7 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        stage.dispose();
         // TODO Auto-generated method stub
     }
 

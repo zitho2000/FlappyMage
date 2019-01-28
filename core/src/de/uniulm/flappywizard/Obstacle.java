@@ -5,18 +5,18 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract   class Obstacle {
-    private Vector2 position;
+    public Vector2 position;
     Vector2 size;
     Rectangle hitbox;
     public Texture texture;
 
 
-    public Obstacle(float x, float y) {
-        this.position =new Vector2(x,y);
+    public Obstacle(float x) {
+        this.position=new Vector2(x,0);
     }
 
     public Vector2 getSize() {
-        return size;
+        return this.size;
     }
 
     public Vector2 getPosition() {
@@ -24,8 +24,9 @@ public abstract   class Obstacle {
     }
 
     public  void setPosition(float x,float y){
-        this.position.x=x;
+        this.position=new Vector2(x,y);
         this.hitbox.x=x;
+        this.hitbox.y=y;
     }
 
     public void moveLeft (int x){
