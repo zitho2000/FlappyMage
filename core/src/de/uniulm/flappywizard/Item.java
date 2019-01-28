@@ -12,7 +12,7 @@ public abstract class Item {
      public boolean active;
 
      public Item(){
-         this.position=new Vector2(0,100000);
+         this.position=new Vector2(100000,100000);
          size =new Vector2(50,50);
          this.hitbox=new Rectangle(this.position.x,this.position.y,this.size.x,this.size.y);
 

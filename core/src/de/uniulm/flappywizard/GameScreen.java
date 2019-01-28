@@ -183,6 +183,7 @@ public class GameScreen implements Screen {
         }
 
         if (item.hitbox.overlaps(new Rectangle(-100,0,100,720)) || item.hitbox.overlaps(mage.hitbox)){
+            item.setPosition(1000000,1000000);
             int rng= (int) (Math.random()*4)+1;
             if (rng == 1){
                 spawn(troll);
