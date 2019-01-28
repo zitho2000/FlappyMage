@@ -9,10 +9,12 @@ public abstract   class Obstacle {
     Vector2 size;
     Rectangle hitbox;
     public Texture texture;
+    public boolean countet;
 
 
     public Obstacle(float x) {
         this.position=new Vector2(x,0);
+        countet=false;
     }
 
     public Vector2 getSize() {
@@ -34,4 +36,5 @@ public abstract   class Obstacle {
         this.hitbox.x-=x;
     }
    abstract void reposition();
+    abstract void resize(float height);
 }

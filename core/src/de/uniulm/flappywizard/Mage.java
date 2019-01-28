@@ -19,10 +19,10 @@ public class Mage {
     public Mage(int x, int y) {
         position = new Vector2(x, y);
         alive = true;
-        size = new Vector2(50, 50);
+        size = new Vector2(100, 100);
 
         texture = new Texture("core/assets/png/harry.png");
-        hitbox = new Rectangle(position.x, position.y,(float)(texture.getWidth()*0.125), (float)(texture.getHeight()*0.125) );
+        hitbox = new Rectangle(this.position.x, this.position.y,this.size.x, this.size.y );
     }
 
     public Vector2 getPosition() {
@@ -57,4 +57,7 @@ public class Mage {
         this.alive=false;
     }
 
+    public Vector2 getSize() {
+        return size;
+    }
 }

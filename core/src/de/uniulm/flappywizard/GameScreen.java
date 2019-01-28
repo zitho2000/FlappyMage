@@ -1,12 +1,15 @@
 package de.uniulm.flappywizard;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 public class GameScreen implements Screen {
 
@@ -16,7 +19,8 @@ public class GameScreen implements Screen {
     public int gravity=0;
 
     public float counter=10;
-    public int sizechange=1;
+    public int score=0;
+
 
     OrthographicCamera camera;
     Mage mage = new Mage(200, 400);
@@ -28,6 +32,7 @@ public class GameScreen implements Screen {
     Tower tower2 = new Tower(tower1.getPosition().x+800);
     Tower tower3 = new Tower(tower2.getPosition().x+800);
     Tower tower4 = new Tower(tower3.getPosition().x+800);
+     BitmapFont scorelabel=new BitmapFont();
 
 
     Troll troll = new Troll();
@@ -53,7 +58,7 @@ public class GameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         counter=counter+delta;
-        System.out.println(counter);
+
         if (mage.alive) {
             obstacleRoutine(dementor1);
             obstacleRoutine(dementor2);
@@ -71,7 +76,7 @@ public class GameScreen implements Screen {
 
             itemHandling();
 
-           // System.out.println(speed);
+
             game.batch.begin();
 
             drawWizard(mage);
@@ -87,7 +92,7 @@ public class GameScreen implements Screen {
             drawObstacle(tower2);
             drawObstacle(tower3);
             drawObstacle(tower4);
-
+            scorelabel.draw(game.batch,Integer.toString(score),1230,700);
             game.batch.end();
         }
     }
@@ -161,9 +166,15 @@ public class GameScreen implements Screen {
 
         }
 
-        if (mage.getPosition().x==obstacle.getPosition().x){
+        if(turbo.active){
+            obstacle.resize(250);
+        }
+        if (troll.active){
 
-
+        }
+        if (mage.getPosition().x>=obstacle.getPosition().x&&!obstacle.countet){
+            score++;
+            obstacle.countet=true;
 
         }
     }
@@ -178,7 +189,7 @@ public class GameScreen implements Screen {
             item.activate();
 
         }
-        if (counter <= 10){
+        if (counter <= 5){
            // System.out.println("active");
         }else{
 
@@ -186,7 +197,7 @@ public class GameScreen implements Screen {
 
         }
 
-        if (item.hitbox.overlaps(new Rectangle(-100,0,100,720)) || item.hitbox.overlaps(mage.hitbox)){
+        if (item.hitbox.overlaps(new Rectangle(-100,0,50,720)) || item.hitbox.overlaps(mage.hitbox)){
             item.setPosition(1000000,1000000);
             int rng= (int) (Math.random()*4)+1;
             if (rng == 1){
@@ -218,7 +229,7 @@ public class GameScreen implements Screen {
         if (turbo.active){
             speed=speed*5;
             gravity = 0;
-            mage.setPosition(mage.getPosition().x,720/2);
+            mage.setPosition(mage.getPosition().x,720/2-mage.getSize().y/2);
             mage.texture=new Texture("core/assets/png/Rakete.png");
         }
         if (troll.active){
