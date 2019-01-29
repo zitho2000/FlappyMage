@@ -35,6 +35,8 @@ public class Tower extends Obstacle{
 
     void reposition(){
         this.countet=false;
+        this.resized=false;
+        this.hitted=false;
         int rng= (int) (Math.random()*4 +1);
         if (rng==1){
             this.texture= texture1;}
@@ -52,10 +54,11 @@ public class Tower extends Obstacle{
 
 
     }
-    void resize(float height){
-        this.size.y= height;
-
-        this.hitbox=new Rectangle(this.getPosition().x,this.getPosition().y,this.size.x,this.size.y);
+    void resize(float height) {
+        if (!this.resized) {
+            this.size.y = height;
+            this.hitbox = new Rectangle(this.getPosition().x, this.getPosition().y, this.size.x, this.size.y);
+            this.resized=true;
+        }
     }
-
 }

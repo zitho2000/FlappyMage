@@ -36,4 +36,7 @@ public abstract class Item {
      public abstract void activate();
      public abstract void deactivate();
 
+    public Vector2 getSize() {
+        return size;
+    }
 }

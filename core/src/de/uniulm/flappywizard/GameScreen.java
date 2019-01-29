@@ -20,6 +20,8 @@ public class GameScreen implements Screen {
 
     public float counter=10;
     public int score=0;
+    public int smoothJump=10;
+
 
 
     OrthographicCamera camera;
@@ -47,7 +49,7 @@ public class GameScreen implements Screen {
         this.speed=5;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1280, 720);
-        this.turbo.setPosition(800,(float)Math.random()*720);
+        this.spawn(turbo);
     }
 
     @Override
@@ -80,10 +82,7 @@ public class GameScreen implements Screen {
             game.batch.begin();
 
             drawWizard(mage);
-            drawItem(troll);
-            drawItem(invulnerablility);
-            drawItem(turbo);
-            drawItem(doublePoints);
+
             drawObstacle(dementor1);
             drawObstacle(dementor2);
             drawObstacle(dementor3);
@@ -92,6 +91,10 @@ public class GameScreen implements Screen {
             drawObstacle(tower2);
             drawObstacle(tower3);
             drawObstacle(tower4);
+            drawItem(troll);
+            drawItem(invulnerablility);
+            drawItem(turbo);
+            drawItem(doublePoints);
             scorelabel.draw(game.batch,Integer.toString(score),1230,700);
             game.batch.end();
         }
@@ -140,8 +143,15 @@ public class GameScreen implements Screen {
     void wizardRoutine(Mage wizard){
         mage.fall(gravity);
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            smoothJump=0;
+        }
+        if (smoothJump<=10){
+            smoothJump++;
             mage.flyUp();
         }
+
+
+
         if (wizard.getPosition().y <= 0) {
            // mage.die();
         }
@@ -156,9 +166,14 @@ public class GameScreen implements Screen {
 
     void obstacleRoutine(Obstacle obstacle) {
         obstacle.moveLeft(this.speed);
-        if (obstacle.hitbox.overlaps(mage.hitbox)) {
-            System.out.println("hitted");
+        if (obstacle.hitbox.overlaps(mage.hitbox)&&!obstacle.hitted) {
+            obstacle.hitted=true;
+            if(invulnerablility.active){
+                invulnerablility.deactivate();
+            }
+            else {System.out.println("hitted");
             //mage.die();
+                }
         }
 
         if (obstacle.getPosition().x+obstacle.size.x <=0){
@@ -170,10 +185,15 @@ public class GameScreen implements Screen {
             obstacle.resize(250);
         }
         if (troll.active){
-
+            obstacle.resize(obstacle.size.y*1.2f);
         }
         if (mage.getPosition().x>=obstacle.getPosition().x&&!obstacle.countet){
             score++;
+
+            if (doublePoints.active){
+                score++;
+
+            }
             obstacle.countet=true;
 
         }
@@ -191,6 +211,9 @@ public class GameScreen implements Screen {
         }
         if (counter <= 5){
            // System.out.println("active");
+            if (item.hitbox.overlaps(new Rectangle(1280,0,50,720))){
+                spawn(item);
+            }
         }else{
 
             item.deactivate();
@@ -225,7 +248,7 @@ public class GameScreen implements Screen {
 
     void itemHandling(){
         speed=5;
-        gravity=5;
+        gravity=10;
         if (turbo.active){
             speed=speed*5;
             gravity = 0;
@@ -235,8 +258,9 @@ public class GameScreen implements Screen {
         if (troll.active){
 
         }
+        mage.setSize(100,100);
         if (invulnerablility.active){
-
+            mage.setSize(50,50);
         }
         if (doublePoints.active){
 
@@ -262,8 +286,8 @@ public class GameScreen implements Screen {
         game.batch.draw(item.texture
                 , item.getPosition().x
                 , item.getPosition().y
-                , item.hitbox.width
-                , item.hitbox.height
+                , item.getSize().x
+                , item.getSize().y
         );
     }
 
@@ -271,8 +295,8 @@ public class GameScreen implements Screen {
         game.batch.draw(wizard.texture
                 , wizard.getPosition().x
                 , wizard.getPosition().y
-                , wizard.hitbox.width
-                , wizard.hitbox.height
+                , wizard.getSize().x
+                , wizard.getSize().y
         );
 
     }

@@ -25,6 +25,8 @@ public class Dementor extends Obstacle {
 
     void reposition(){
         this.countet=false;
+        this.resized=false;
+        this.hitted=false;
         float rng =(float)Math.random();
 
         this.size.y=300*rng+200;
@@ -39,9 +41,11 @@ public class Dementor extends Obstacle {
     }
 
     void resize(float height){
-        this.size.y=height;
-        this.setPosition(this.getPosition().x,720-this.getSize().y);
-        this.hitbox=new Rectangle(this.getPosition().x,this.getPosition().y,this.size.x,this.size.y);
-
+        if (!this.resized) {
+            this.size.y = height;
+            this.setPosition(this.getPosition().x, 720 - this.getSize().y);
+            this.hitbox = new Rectangle(this.getPosition().x, this.getPosition().y, this.size.x, this.size.y);
+            this.resized=true;
+        }
     }
 }

@@ -10,11 +10,15 @@ public abstract   class Obstacle {
     Rectangle hitbox;
     public Texture texture;
     public boolean countet;
+    public boolean resized;
+    public boolean hitted;
 
 
     public Obstacle(float x) {
         this.position=new Vector2(x,0);
+        hitted=false;
         countet=false;
+        resized=false;
     }
 
     public Vector2 getSize() {

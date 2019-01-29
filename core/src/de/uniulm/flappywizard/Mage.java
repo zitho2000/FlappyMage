@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Mage {
 
-    private static final int UP = 80;
+    private static final int UP = 20;
 
     private Vector2 position;
     public boolean alive;
@@ -35,12 +35,12 @@ public class Mage {
         this.hitbox.y=y;
     }
 
-    public void setHalfSize() {
-        this.size.scl(0.5f);
-    }
 
-    public void resetSize() {
-        this.size.scl(2);
+
+    public void setSize(float x,float y) {
+        this.size=new Vector2(x,y);
+        this.hitbox.width=x;
+        this.hitbox.height=y;
     }
 
 
