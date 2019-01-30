@@ -69,7 +69,7 @@ public class MainMenuScreen implements Screen {
         });
 
         help.addListener(new ChangeListener() {
-            @Override
+
             public void changed(ChangeEvent event, Actor actor) {
                 System.out.println("clicked");
                 dispose();
@@ -77,7 +77,15 @@ public class MainMenuScreen implements Screen {
 
             }
         });
+        highScore.addListener(new ChangeListener() {
 
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("clicked");
+                dispose();
+                game.setScreen(new GameOverScreen(game,42));
+
+            }
+        });
         Gdx.input.setInputProcessor(stage);
     }
 

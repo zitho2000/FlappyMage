@@ -24,7 +24,7 @@ public class GameScreen implements Screen {
 
     public float counter=10;
     public int score=0;
-    public int smoothJump=10;
+    public int smoothJump=15;
 
 
 
@@ -133,7 +133,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        mage.texture.dispose();
+        /*mage.texture.dispose();
         tower1.texture.dispose();
         tower2.texture.dispose();
         tower3.texture.dispose();
@@ -141,7 +141,7 @@ public class GameScreen implements Screen {
         dementor1.texture.dispose();
         dementor2.texture.dispose();
         dementor3.texture.dispose();
-        dementor4.texture.dispose();
+        dementor4.texture.dispose();*/
 
     }
 
@@ -165,7 +165,8 @@ public class GameScreen implements Screen {
             boolean isNewHighscore=readHighscore();
 
             if(isNewHighscore) {
-
+                dispose();
+                game.setScreen(new GameOverScreen(game,score));
             }
             else {
                 dispose();
@@ -263,6 +264,7 @@ public class GameScreen implements Screen {
         speed=5;
         gravity=10;
         if (turbo.active){
+            smoothJump=15;
             speed=speed*5;
             gravity = 0;
             mage.setPosition(mage.getPosition().x,720/2-mage.getSize().y/2);
