@@ -1,12 +1,13 @@
 package de.uniulm.flappywizard;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Mage {
 
-    private static final int UP = 20;
+
 
     private Vector2 position;
     public boolean alive;
@@ -14,6 +15,7 @@ public class Mage {
     public Rectangle hitbox;
     public Texture texture;
     public Texture Rakete;
+
 
 
     public Mage(int x, int y) {
@@ -49,9 +51,9 @@ public class Mage {
         hitbox.y-= gravity;
     }
 
-    public void flyUp() {
-        position.y += UP;
-        hitbox.y+=UP;
+    public void flyUp(int up) {
+        position.y += up;
+        hitbox.y+=up;
     }
     public void die(){
         this.alive=false;

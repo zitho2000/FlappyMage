@@ -11,9 +11,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class GameScreen implements Screen {
 
-    final FlappyWizardGame game;
+    public final FlappyWizardGame game;
 
     public int speed;
     public int gravity=0;
@@ -26,11 +30,11 @@ public class GameScreen implements Screen {
 
     OrthographicCamera camera;
     Mage mage = new Mage(200, 400);
-    Dementor dementor1 = new Dementor(900);
+    Dementor dementor1 = new Dementor(1000);
     Dementor dementor2= new Dementor(dementor1.getPosition().x+800);
     Dementor dementor3= new Dementor(dementor2.getPosition().x+800);
     Dementor dementor4= new Dementor(dementor3.getPosition().x+800);
-    Tower tower1 = new Tower(500);
+    Tower tower1 = new Tower(600);
     Tower tower2 = new Tower(tower1.getPosition().x+800);
     Tower tower3 = new Tower(tower2.getPosition().x+800);
     Tower tower4 = new Tower(tower3.getPosition().x+800);
@@ -50,6 +54,8 @@ public class GameScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1280, 720);
         this.spawn(turbo);
+
+
     }
 
     @Override
@@ -77,7 +83,7 @@ public class GameScreen implements Screen {
             wizardRoutine(mage);
 
             itemHandling();
-
+            System.out.println(speed);
 
             game.batch.begin();
 
@@ -145,19 +151,26 @@ public class GameScreen implements Screen {
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             smoothJump=0;
         }
-        if (smoothJump<=10){
+        if (smoothJump<=15){
             smoothJump++;
-            mage.flyUp();
+            mage.flyUp(25-smoothJump);
         }
 
 
 
         if (wizard.getPosition().y <= 0) {
-           // mage.die();
+            mage.die();
         }
         if (mage.alive== false){
-            dispose();
-            game.setScreen(new MainMenuScreen(game));
+            boolean isNewHighscore=readHighscore();
+
+            if(isNewHighscore) {
+
+            }
+            else {
+                dispose();
+                game.setScreen(new MainMenuScreen(game));
+            }
 
 
         }
@@ -172,7 +185,7 @@ public class GameScreen implements Screen {
                 invulnerablility.deactivate();
             }
             else {System.out.println("hitted");
-            //mage.die();
+            mage.die();
                 }
         }
 
@@ -299,6 +312,30 @@ public class GameScreen implements Screen {
                 , wizard.getSize().y
         );
 
+    }
+
+    boolean readHighscore(){
+        try{
+        BufferedReader br =new BufferedReader(new FileReader("core/Highscore.txt"));
+
+        String line="";
+        String s;
+        while((s =br.readLine())!=null){
+            line+=s + "\r\n";
+        }
+
+            System.out.println(line);
+
+        int last =Integer.parseInt( line.split("\r\n")[2].split(" ")[1]);
+        if (last<score){
+            return true;
+        }
+
+
+        } catch(IOException e){
+
+        }
+        return false;
     }
 
 }
