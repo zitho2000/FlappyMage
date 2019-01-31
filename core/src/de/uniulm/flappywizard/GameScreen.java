@@ -1,15 +1,13 @@
 package de.uniulm.flappywizard;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
+
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -20,40 +18,73 @@ public class GameScreen implements Screen {
     public final FlappyWizardGame game;
 
     public double speed;
-    public int gravity=0;
-
-    public float counter=10;
-    public int score=0;
-    public int smoothJump=15;
-    public double faster=0;
-
+    public int gravity ;
+    public float counter ;
+    public int score ;
+    public int smoothJump ;
+    public double faster;
 
 
     OrthographicCamera camera;
-    Mage mage = new Mage(200, 400);
-    Dementor dementor1 = new Dementor(1000);
-    Dementor dementor2= new Dementor(dementor1.getPosition().x+800);
-    Dementor dementor3= new Dementor(dementor2.getPosition().x+800);
-    Dementor dementor4= new Dementor(dementor3.getPosition().x+800);
-    Tower tower1 = new Tower(600);
-    Tower tower2 = new Tower(tower1.getPosition().x+800);
-    Tower tower3 = new Tower(tower2.getPosition().x+800);
-    Tower tower4 = new Tower(tower3.getPosition().x+800);
-    BitmapFont scorelabel=new BitmapFont();
 
+    Mage mage ;     //Spielfigur
 
-    Troll troll = new Troll();
-    DoublePoints doublePoints=new DoublePoints();
-    Invulnerablility invulnerablility= new Invulnerablility();
-    Turbo turbo= new Turbo();
+    //obere Hindernisse
+    Dementor dementor1;
+    Dementor dementor2;
+    Dementor dementor3;
+    Dementor dementor4;
 
+    //untere Hindernisse
+    Tower tower1;
+    Tower tower2;
+    Tower tower3;
+    Tower tower4;
+
+    private BitmapFont scorelabel;      //Punkteanzeige
+
+    //sammelbare Gegenstände
+    Troll troll;
+    DoublePoints doublePoints;
+    Invulnerablility invulnerablility;
+    Turbo turbo;
 
 
     public GameScreen(FlappyWizardGame game) {
+
+
         this.game = game;
-        this.speed=5;
+
+
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1280, 720);
+
+        this.gravity = 0;
+        this.counter = 10;
+        this.score = 0;
+        this.smoothJump = 15;
+        this.faster = 0;
+        this.speed = 5;
+
+
+        this.mage = new Mage(200, 400);
+        this.dementor1 = new Dementor(1000);
+        this.dementor2 = new Dementor(dementor1.getPosition().x + 800);
+        this.dementor3 = new Dementor(dementor2.getPosition().x + 800);
+        this.dementor4 = new Dementor(dementor3.getPosition().x + 800);
+        this.tower1 = new Tower(600);
+        this.tower2 = new Tower(tower1.getPosition().x + 800);
+        this.tower3 = new Tower(tower2.getPosition().x + 800);
+        this.tower4 = new Tower(tower3.getPosition().x + 800);
+        this.scorelabel = new BitmapFont();
+
+
+        this.troll = new Troll();
+        this.doublePoints = new DoublePoints();
+        this.invulnerablility = new Invulnerablility();
+        this.turbo = new Turbo();
+
+
         this.spawn(turbo);
 
 
@@ -63,13 +94,12 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         // TODO Auto-generated method stub
 
-        Gdx.gl.glClearColor(100/255f, 127/255f, 127/255f, 1);
+        Gdx.gl.glClearColor(100 / 255f, 127 / 255f, 127 / 255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        counter=counter+delta;
+        counter = counter + delta;
 
         if (mage.alive) {
-
 
 
             obstacleRoutine(dementor1);
@@ -88,10 +118,7 @@ public class GameScreen implements Screen {
             itemHandling();
 
 
-
-
             game.batch.begin();
-
 
 
             drawObstacle(dementor1);
@@ -107,7 +134,7 @@ public class GameScreen implements Screen {
             drawItem(invulnerablility);
             drawItem(turbo);
             drawItem(doublePoints);
-            scorelabel.draw(game.batch,Integer.toString(score),1230,700);
+            scorelabel.draw(game.batch, Integer.toString(score), 1230, 700);
             game.batch.end();
         }
     }
@@ -152,36 +179,38 @@ public class GameScreen implements Screen {
     }
 
 
-    void wizardRoutine(Mage wizard){
+    void wizardRoutine(Mage wizard) {
+
+        //y-Bewegung vom Zauberer
         mage.fall(gravity);
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            smoothJump=0;
+            smoothJump = 0;
         }
-        if (smoothJump<=15){
+        if (smoothJump <= 15) {
             smoothJump++;
-            mage.flyUp(25-smoothJump);
+            mage.flyUp(25 - smoothJump);
         }
 
 
-
-        if(mage.getPosition().y+mage.getSize().y>=720){
-            mage.setPosition(mage.getPosition().x,720-mage.getSize().y);
+        if (mage.getPosition().y + mage.getSize().y >= 720) {
+            mage.setPosition(mage.getPosition().x, 720 - mage.getSize().y);
         }
 
-
+        //neuer Screen-Aufruf beim Tod des Zauberers
         if (wizard.getPosition().y <= 0) {
             mage.die();
         }
-        if (mage.alive== false){
-            boolean isNewHighscore=readHighscore();
+        if (mage.alive == false) {
+            boolean isNewHighscore = readHighscore();
 
-            if(isNewHighscore) {
+            if (isNewHighscore) {
+
+                game.setScreen(new GameOverScreen(game, score));
                 dispose();
-                game.setScreen(new GameOverScreen(game,score));
-            }
-            else {
-                dispose();
+            } else {
+
                 game.setScreen(new MainMenuScreen(game));
+                dispose();
             }
 
 
@@ -191,116 +220,119 @@ public class GameScreen implements Screen {
 
     void obstacleRoutine(Obstacle obstacle) {
         obstacle.moveLeft(this.speed);
-        if (obstacle.hitbox.overlaps(mage.hitbox)&&!obstacle.hitted) {
-            obstacle.hitted=true;
-            if(invulnerablility.active||turbo.active){
+
+        //Kollision mit Zauberer
+        if (obstacle.hitbox.overlaps(mage.hitbox) && !obstacle.hitted) {
+            obstacle.hitted = true;
+            if (invulnerablility.active || turbo.active) {
                 invulnerablility.deactivate();
+            } else {
+                mage.die();
             }
-            else {
-            mage.die();
-                }
         }
 
-        if (obstacle.getPosition().x+obstacle.size.x <=0){
+        //überwundene Hindernisse werden wiederverwendet
+        if (obstacle.getPosition().x + obstacle.size.x <= 0) {
             obstacle.reposition();
-
         }
 
-        if(turbo.active){
+        //Größenaktualisierung bei bestimmten aktiven Items
+        if (turbo.active) {
             obstacle.resize(250);
         }
-        if (troll.active){
-            obstacle.resize(obstacle.size.y*1.2f);
+        if (troll.active) {
+            obstacle.resize(obstacle.size.y * 1.2f);
         }
-        if (mage.getPosition().x>=obstacle.getPosition().x&&!obstacle.countet){
+        if(counter>5 ){
+            obstacle.resizable=true;
+        }
+
+        //Zähler für score etc.
+        if (mage.getPosition().x >= obstacle.getPosition().x && !obstacle.countet) {
             score++;
-            faster=faster+0.01;
-
-
-            if (doublePoints.active){
+            faster = faster + 0.01;
+            if (doublePoints.active) {
                 score++;
-
-
             }
-            obstacle.countet=true;
-
+            obstacle.countet = true;
         }
     }
 
 
-
     void itemRoutine(Item item) {
         item.moveLeft(this.speed);
+
+        //Kollisionsbehandlung mit Zauberer
         if (item.hitbox.overlaps(mage.hitbox)) {
             System.out.println("collected");
-            counter=0;
+            counter = 0;
             item.activate();
 
         }
-        if (counter <= 5){
+        if (counter <= 5) {
 
-            if (item.hitbox.overlaps(new Rectangle(1280,0,50,720))){
+            if (item.hitbox.overlaps(new Rectangle(1280, 0, 50, 720))) {
                 spawn(item);
             }
-        }else{
-
+        } else {
             item.deactivate();
-
         }
 
-        if (item.hitbox.overlaps(new Rectangle(-100,0,50,720)) || item.hitbox.overlaps(mage.hitbox)){
-            item.setPosition(1000000,1000000);
-            int rng= (int) (Math.random()*4)+1;
-            if (rng == 1){
+        //neues Item spawnen, wenn nicht eingesammelt
+        if (item.hitbox.overlaps(new Rectangle(-100, 0, 50, 720)) || item.hitbox.overlaps(mage.hitbox)) {
+            item.setPosition(1000000, 1000000);
+            int rng = (int) (Math.random() * 4) + 1;
+            if (rng == 1) {
                 spawn(troll);
             }
-            if (rng == 2){
+            if (rng == 2) {
                 spawn(turbo);
             }
-            if (rng == 3){
+            if (rng == 3) {
                 spawn(doublePoints);
             }
-            if (rng == 4){
+            if (rng == 4) {
                 spawn(invulnerablility);
             }
         }
     }
 
-    void spawn(Item item){
-        item.setPosition((float)Math.random()*1280+1500,(float)Math.random()*620+50);
-        if (item.hitbox.overlaps(dementor1.hitbox)||item.hitbox.overlaps(dementor1.hitbox)||item.hitbox.overlaps(dementor2.hitbox)||item.hitbox.overlaps(dementor3.hitbox)||item.hitbox.overlaps(dementor4.hitbox)||item.hitbox.overlaps(tower1.hitbox)||item.hitbox.overlaps(tower2.hitbox)||item.hitbox.overlaps(tower3.hitbox)||item.hitbox.overlaps(tower4.hitbox)){
+    //spawnt ein item
+    void spawn(Item item) {
+        item.setPosition((float) Math.random() * 1280 + 1500, (float) Math.random() * 620 + 50);
+        if (item.hitbox.overlaps(dementor1.hitbox) || item.hitbox.overlaps(dementor1.hitbox) || item.hitbox.overlaps(dementor2.hitbox) || item.hitbox.overlaps(dementor3.hitbox) || item.hitbox.overlaps(dementor4.hitbox) || item.hitbox.overlaps(tower1.hitbox) || item.hitbox.overlaps(tower2.hitbox) || item.hitbox.overlaps(tower3.hitbox) || item.hitbox.overlaps(tower4.hitbox)) {
             spawn(item);
         }
     }
 
 
-    void itemHandling(){
-        speed=5+faster;
-        gravity=10;
-        if (turbo.active){
-            smoothJump=15;
-            speed=speed*5;
+    void itemHandling() {
+        speed = 5 + faster;
+        gravity = 10;
+
+        //Turbo-mode-Behandlungen
+        if (turbo.active) {
+            smoothJump = 15;
+            speed = speed * 5;
             gravity = 0;
-            mage.setPosition(mage.getPosition().x,720/2-mage.getSize().y/2);
-
-        }
-        if (troll.active){
-
-        }
-        mage.setSize(100,100);
-        if (invulnerablility.active){
-            mage.setSize(50,50);
-        }
-        if (doublePoints.active){
-
+            mage.setPosition(mage.getPosition().x, 720 / 2 - mage.getSize().y / 2);
         }
 
+        //Troll-Behandlungen
+        if (troll.active) {
+        }
+        mage.setSize(100, 100);
 
+        //Unverwundbarkeits-Behandlungen
+        if (invulnerablility.active) {
+            mage.setSize(50, 50);
+        }
+        //Doppelte-Punkte-Behandlungen
+        if (doublePoints.active) {
+        }
     }
 
-
-
-
+    //Hindernis malen
     void drawObstacle(Obstacle obstacle) {
         game.batch.draw(obstacle.texture
                 , obstacle.getPosition().x
@@ -310,7 +342,7 @@ public class GameScreen implements Screen {
         );
     }
 
-
+    //Gegenstand malen
     void drawItem(Item item) {
         game.batch.draw(item.texture
                 , item.getPosition().x
@@ -320,7 +352,8 @@ public class GameScreen implements Screen {
         );
     }
 
-    void drawWizard(Mage wizard){
+    //Zauberer malen
+    void drawWizard(Mage wizard) {
         game.batch.draw(wizard.texture
                 , wizard.getPosition().x
                 , wizard.getPosition().y
@@ -330,25 +363,27 @@ public class GameScreen implements Screen {
 
     }
 
-    boolean readHighscore(){
-        try{
-        BufferedReader br =new BufferedReader(new FileReader("core/Highscore.txt"));
 
-        String line="";
-        String s;
-        while((s =br.readLine())!=null){
-            line+=s + "\r\n";
-        }
+    //Highscore lesen und vergleichen, ob neuer Highscore erreicht wurde
+    boolean readHighscore() {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("core/Highscore.txt"));
+
+            String line = "";
+            String s;
+            while ((s = br.readLine()) != null) {
+                line += s + "\r\n";
+            }
 
             System.out.println(line);
 
-        int last =Integer.parseInt( line.split("\r\n")[2].split(" ")[1]);
-        if (last<score){
-            return true;
-        }
+            int last = Integer.parseInt(line.split("\r\n")[2].split(" ")[1]);
+            if (last < score) {
+                return true;
+            }
 
 
-        } catch(IOException e){
+        } catch (IOException e) {
 
         }
         return false;

@@ -5,19 +5,18 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class Item {
-     private Vector2 position;
-     public Rectangle hitbox;
-     private Vector2 size;
-     public Texture texture;
-     public boolean active;
+
+
+    private Vector2 position;   //Position
+     public Rectangle hitbox;   //treffbarer Rahmen
+     private Vector2 size;      //Größe
+     public Texture texture;    //Textur
+     public boolean active;     //Gegenstand aktiv/inaktiv
 
      public Item(){
-         this.position=new Vector2(100000,100000);
+         this.position=new Vector2(42,1000);
          size =new Vector2(50,50);
          this.hitbox=new Rectangle(this.position.x,this.position.y,this.size.x,this.size.y);
-
-
-
      }
 
     public Vector2 getPosition() {
@@ -29,10 +28,13 @@ public abstract class Item {
         this.hitbox.x=x;
         this.hitbox.y=y;
     }
+
+    //nach links bewegen, um Scrollscreen zu schaffen
     public void moveLeft (double x){
          this.setPosition((float)(this.getPosition().x-x),this.getPosition().y);
          this.hitbox.x-=x;
     }
+
      public abstract void activate();
      public abstract void deactivate();
 

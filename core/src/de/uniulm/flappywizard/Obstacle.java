@@ -6,19 +6,19 @@ import com.badlogic.gdx.math.Vector2;
 
 public abstract   class Obstacle {
     public Vector2 position;
-    Vector2 size;
-    Rectangle hitbox;
-    public Texture texture;
-    public boolean countet;
-    public boolean resized;
-    public boolean hitted;
+    Vector2 size;               //Größe
+    Rectangle hitbox;           //treffbarer Rahmen
+    public Texture texture;     //Texture
+    public boolean countet;     //bereits gezählt
+    public boolean resizable;   //Größe veränderbar
+    public boolean hitted;      //bereits getroffen
 
 
     public Obstacle(float x) {
         this.position=new Vector2(x,0);
         hitted=false;
         countet=false;
-        resized=false;
+        resizable=true;
     }
 
     public Vector2 getSize() {
@@ -34,11 +34,12 @@ public abstract   class Obstacle {
         this.hitbox.x=x;
         this.hitbox.y=y;
     }
-
+    //nach links bewegen, um Scrollscreen zu schaffen
     public void moveLeft (double x){
         this.position.x-=x;
         this.hitbox.x-=x;
     }
+
    abstract void reposition();
-    abstract void resize(float height);
+   abstract void resize(float height);
 }

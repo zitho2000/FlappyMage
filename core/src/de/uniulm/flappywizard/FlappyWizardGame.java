@@ -1,8 +1,6 @@
 package de.uniulm.flappywizard;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -23,7 +21,7 @@ public class FlappyWizardGame extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		font = new BitmapFont();
+
 		
 		hermine = new Texture("core/assets/png/hermine.png");
 
@@ -55,9 +53,7 @@ public class FlappyWizardGame extends Game {
 	@Override
 	public void dispose () {
 		batch.dispose();
-		font.dispose();
-		
-		hermine.dispose();
+
 		
 		harry.dispose();
 		luna.dispose();

@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -30,24 +29,28 @@ public class GameOverScreen implements Screen {
 
     OrthographicCamera camera;
 
-    int score;
-    Stage stage=new Stage();
-    BitmapFont textFieldFont= new BitmapFont();
-    Image popUp;
-    TextField input;
-    ImageButton ok;
+    int score;                  //neuer Highscore
+    Stage stage;
+    BitmapFont textFieldFont;
+    Image popUp;                //Rahmen
+    TextField input;            //Eingabe-Feld
+    ImageButton ok;             //Bestätigungs-Button
 
     public GameOverScreen(final FlappyWizardGame game, int score) {
         this.game=game;
+
         camera= new OrthographicCamera();
         camera.setToOrtho(false, 1280, 720);
-        ok =new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/OkButton.png"))));
-        popUp=new Image(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/HighscorePopup.png"))));
-        input =new TextField("",new TextField.TextFieldStyle(textFieldFont,Color.BLACK,new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/cursor.png"))),null,new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/Textfield.png")))));
+
+        this.stage=new Stage();
+        this.textFieldFont= new BitmapFont();
+        this.ok =new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/OkButton.png"))));
+        this.popUp=new Image(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/HighscorePopup.png"))));
+        this.input =new TextField("",new TextField.TextFieldStyle(textFieldFont,Color.BLACK,new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/cursor.png"))),null,new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/Textfield.png")))));
 
         this.score=score;
-        input.setAlignment(Align.center);
-        input.setTextFieldFilter(new TextField.TextFieldFilter() {
+        this.input.setAlignment(Align.center);
+        this.input.setTextFieldFilter(new TextField.TextFieldFilter() {
             @Override
             public boolean acceptChar(TextField textField, char c) {
                 if (c== ' '){
@@ -55,6 +58,7 @@ public class GameOverScreen implements Screen {
                 return true;
             }
         });
+        this.input.setMaxLength(15);
 
         popUp.setPosition(1280/2-popUp.getWidth()/2,720/2-popUp.getHeight()/2);
         input.setPosition(1280/2-input.getWidth()/2,720/2-input.getHeight()/2);
@@ -65,7 +69,7 @@ public class GameOverScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
 
-
+        //OK-Button geklickt
         ok.addListener(new ChangeListener(){
             public void changed(ChangeEvent event, Actor actor){
                 changeHighscore(input.getText());
@@ -115,20 +119,15 @@ public class GameOverScreen implements Screen {
     }
 
 
-
+    //Highscore-Liste ändern und speichern
     void changeHighscore(String name){
         try {
 
 
             BufferedReader br = new BufferedReader(new FileReader("core/Highscore.txt"));
-
-
-
             String Text="";
-            String finalText;
             String erster=br.readLine();
             String zweiter=br.readLine();
-            int temp;
              if (Integer.parseInt(erster.split(" ")[1])<score) {
                  Text=Text+name+" "+score+"\r\n"+erster+"\r\n"+zweiter;
              }else if (Integer.parseInt(zweiter.split(" ")[1])<score) {
@@ -140,10 +139,7 @@ public class GameOverScreen implements Screen {
             PrintWriter pw=new PrintWriter("core/Highscore.txt");
             pw.print(Text);
             pw.flush();
-
         } catch (IOException e){}
-
         }
-
     }
 

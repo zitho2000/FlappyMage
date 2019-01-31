@@ -13,26 +13,21 @@ public class Dementor extends Obstacle {
         this.size=new Vector2(150,250 *((float)Math.random())+180);
         this.position.y=720-this.getSize().y;
         this.hitbox=new Rectangle(this.getPosition().x,this.getPosition().y,this.size.x,this.size.y);
-
-
-
     }
 
     public Texture getTexture() {
         return texture;
-
     }
 
+    //Repositioniert rechts am Bildschirmrand
     void reposition(){
         this.countet=false;
-        this.resized=false;
+        this.resizable=true;
         this.hitted=false;
         float rng =(float)Math.random();
 
         this.size.y=250*rng+180;
-
         this.setPosition(this.getPosition().x+3200,720-this.getSize().y);
-
         this.hitbox=new Rectangle(this.getPosition().x,this.getPosition().y,this.size.x,this.size.y);
 
 
@@ -40,12 +35,13 @@ public class Dementor extends Obstacle {
 
     }
 
+    //Größe ändern
     void resize(float height){
-        if (!this.resized) {
+        if (this.resizable) {
             this.size.y = height;
             this.setPosition(this.getPosition().x, 720 - this.getSize().y);
             this.hitbox = new Rectangle(this.getPosition().x, this.getPosition().y, this.size.x, this.size.y);
-            this.resized=true;
+            this.resizable=false;
         }
     }
 }

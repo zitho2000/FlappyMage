@@ -11,12 +11,9 @@ public class Turbo extends Item {
     }
     public void activate() {
     this.active=true;
-
-
-
     }
+
     public void deactivate(){
         this.active= false;
-
     }
 }

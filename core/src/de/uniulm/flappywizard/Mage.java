@@ -1,6 +1,6 @@
 package de.uniulm.flappywizard;
 
-import com.badlogic.gdx.Game;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -9,12 +9,12 @@ public class Mage {
 
 
 
-    private Vector2 position;
-    public boolean alive;
-    private Vector2 size;
-    public Rectangle hitbox;
-    public Texture texture;
-    public Texture Rakete;
+    private Vector2 position;   //Postion
+    public boolean alive;       //Zauberer am Leben/tot
+    private Vector2 size;       //Größe
+    public Rectangle hitbox;    //treffbarer Rahmen
+    public Texture texture;     //Textur
+
 
 
 
@@ -45,16 +45,19 @@ public class Mage {
         this.hitbox.height=y;
     }
 
-
+    //fallen
     public void fall(int gravity) {
         position.y -= gravity;
         hitbox.y-= gravity;
     }
 
+    //1 mal nach oben fliegen
     public void flyUp(int up) {
         position.y += up;
         hitbox.y+=up;
     }
+
+    //tötet den Zauberer (RIP)
     public void die(){
         this.alive=false;
     }

@@ -21,16 +21,17 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class HighScoreScreen implements Screen {
+
     final FlappyWizardGame game;
     OrthographicCamera camera;
 
-    Stage stage=new Stage();
-    Label nameLabel;
-    Label scoreLabel;
-    Image gimage;
-    Image simage;
-    Image bimage;
-    ImageButton back;
+    Stage stage;
+    Label nameLabel;        //Namensanzeige
+    Label scoreLabel;       //erreichte Punkte
+    Image gimage;           //Gold-Medaille
+    Image simage;           //Silber-Medaille
+    Image bimage;           //Bronze-Medaille
+    ImageButton back;       //zurück-Button
 
     public HighScoreScreen(final FlappyWizardGame game) {
         this.game=game;
@@ -38,6 +39,10 @@ public class HighScoreScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1280, 720);
 
+        stage=new Stage();
+
+
+        //Highscore-Daten auslesen
         String[] first=new String [2];
         String[] second=new String [2];
         String[] third=new String [2];
@@ -48,6 +53,9 @@ public class HighScoreScreen implements Screen {
              third= rb.readLine().split(" ");
 
         }catch (IOException e){}
+
+
+        //Highscore-Daten aufschreiben
         BitmapFont font = new BitmapFont();
         font.getData().setScale(5);
         nameLabel=new Label("Name"+"\r\n\n"+first[0]+"\r\n\n"+second[0]+"\r\n\n"+third[0],new Label.LabelStyle(font, Color.WHITE));
@@ -55,6 +63,7 @@ public class HighScoreScreen implements Screen {
         scoreLabel=new Label("Score"+"\r\n\n"+first[1]+"\r\n\n"+second[1]+"\r\n\n"+third[1],new Label.LabelStyle(font, Color.WHITE));
         scoreLabel.setPosition(1280/2-nameLabel.getPrefWidth()/2+350,720/2-nameLabel.getPrefHeight()/2);
 
+        //Medaillen erstellen
         gimage=new Image(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/Goldmedall.png"))));
         simage=new Image(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/Silvermedall.png"))));
         bimage=new Image(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/Bronzemedall.png"))));
@@ -63,9 +72,9 @@ public class HighScoreScreen implements Screen {
         bimage.setPosition(1280/2-600,720/2-310);
 
         back =new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/ZurückButton.png"))));
-
         back.setPosition(20,720-80);
 
+        //zurück-Button geklickt
         back.addListener(new ChangeListener(){
             public void changed(ChangeEvent event, Actor actor){
                 dispose();
@@ -80,7 +89,6 @@ public class HighScoreScreen implements Screen {
         stage.addActor(bimage);
         stage.addActor(back);
         Gdx.input.setInputProcessor(stage);
-
     }
 
     @Override
