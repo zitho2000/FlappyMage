@@ -19,12 +19,13 @@ public class GameScreen implements Screen {
 
     public final FlappyWizardGame game;
 
-    public int speed;
+    public double speed;
     public int gravity=0;
 
     public float counter=10;
     public int score=0;
     public int smoothJump=15;
+    public double faster=0;
 
 
 
@@ -38,7 +39,7 @@ public class GameScreen implements Screen {
     Tower tower2 = new Tower(tower1.getPosition().x+800);
     Tower tower3 = new Tower(tower2.getPosition().x+800);
     Tower tower4 = new Tower(tower3.getPosition().x+800);
-     BitmapFont scorelabel=new BitmapFont();
+    BitmapFont scorelabel=new BitmapFont();
 
 
     Troll troll = new Troll();
@@ -68,6 +69,9 @@ public class GameScreen implements Screen {
         counter=counter+delta;
 
         if (mage.alive) {
+
+
+
             obstacleRoutine(dementor1);
             obstacleRoutine(dementor2);
             obstacleRoutine(dementor3);
@@ -76,18 +80,19 @@ public class GameScreen implements Screen {
             obstacleRoutine(tower2);
             obstacleRoutine(tower3);
             obstacleRoutine(tower4);
+            wizardRoutine(mage);
             itemRoutine(troll);
             itemRoutine(turbo);
             itemRoutine(invulnerablility);
             itemRoutine(doublePoints);
-            wizardRoutine(mage);
-
             itemHandling();
-            System.out.println(speed);
+
+
+
 
             game.batch.begin();
 
-            drawWizard(mage);
+
 
             drawObstacle(dementor1);
             drawObstacle(dementor2);
@@ -97,6 +102,7 @@ public class GameScreen implements Screen {
             drawObstacle(tower2);
             drawObstacle(tower3);
             drawObstacle(tower4);
+            drawWizard(mage);
             drawItem(troll);
             drawItem(invulnerablility);
             drawItem(turbo);
@@ -133,7 +139,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        /*mage.texture.dispose();
+        mage.texture.dispose();
         tower1.texture.dispose();
         tower2.texture.dispose();
         tower3.texture.dispose();
@@ -141,7 +147,7 @@ public class GameScreen implements Screen {
         dementor1.texture.dispose();
         dementor2.texture.dispose();
         dementor3.texture.dispose();
-        dementor4.texture.dispose();*/
+        dementor4.texture.dispose();
 
     }
 
@@ -156,6 +162,11 @@ public class GameScreen implements Screen {
             mage.flyUp(25-smoothJump);
         }
 
+
+
+        if(mage.getPosition().y+mage.getSize().y>=720){
+            mage.setPosition(mage.getPosition().x,720-mage.getSize().y);
+        }
 
 
         if (wizard.getPosition().y <= 0) {
@@ -182,10 +193,10 @@ public class GameScreen implements Screen {
         obstacle.moveLeft(this.speed);
         if (obstacle.hitbox.overlaps(mage.hitbox)&&!obstacle.hitted) {
             obstacle.hitted=true;
-            if(invulnerablility.active){
+            if(invulnerablility.active||turbo.active){
                 invulnerablility.deactivate();
             }
-            else {System.out.println("hitted");
+            else {
             mage.die();
                 }
         }
@@ -203,9 +214,12 @@ public class GameScreen implements Screen {
         }
         if (mage.getPosition().x>=obstacle.getPosition().x&&!obstacle.countet){
             score++;
+            faster=faster+0.01;
+
 
             if (doublePoints.active){
                 score++;
+
 
             }
             obstacle.countet=true;
@@ -224,7 +238,7 @@ public class GameScreen implements Screen {
 
         }
         if (counter <= 5){
-           // System.out.println("active");
+
             if (item.hitbox.overlaps(new Rectangle(1280,0,50,720))){
                 spawn(item);
             }
@@ -253,7 +267,7 @@ public class GameScreen implements Screen {
     }
 
     void spawn(Item item){
-        item.setPosition((float)Math.random()*1280+1280,(float)Math.random()*620+50);
+        item.setPosition((float)Math.random()*1280+1500,(float)Math.random()*620+50);
         if (item.hitbox.overlaps(dementor1.hitbox)||item.hitbox.overlaps(dementor1.hitbox)||item.hitbox.overlaps(dementor2.hitbox)||item.hitbox.overlaps(dementor3.hitbox)||item.hitbox.overlaps(dementor4.hitbox)||item.hitbox.overlaps(tower1.hitbox)||item.hitbox.overlaps(tower2.hitbox)||item.hitbox.overlaps(tower3.hitbox)||item.hitbox.overlaps(tower4.hitbox)){
             spawn(item);
         }
@@ -261,14 +275,14 @@ public class GameScreen implements Screen {
 
 
     void itemHandling(){
-        speed=5;
+        speed=5+faster;
         gravity=10;
         if (turbo.active){
             smoothJump=15;
             speed=speed*5;
             gravity = 0;
             mage.setPosition(mage.getPosition().x,720/2-mage.getSize().y/2);
-            mage.texture=new Texture("core/assets/png/Rakete.png");
+
         }
         if (troll.active){
 

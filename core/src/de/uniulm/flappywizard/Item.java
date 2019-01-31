@@ -29,8 +29,8 @@ public abstract class Item {
         this.hitbox.x=x;
         this.hitbox.y=y;
     }
-    public void moveLeft (int x){
-         this.setPosition(this.getPosition().x-x,this.getPosition().y);
+    public void moveLeft (double x){
+         this.setPosition((float)(this.getPosition().x-x),this.getPosition().y);
          this.hitbox.x-=x;
     }
      public abstract void activate();

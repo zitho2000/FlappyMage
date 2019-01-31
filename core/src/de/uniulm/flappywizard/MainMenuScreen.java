@@ -1,5 +1,7 @@
 package de.uniulm.flappywizard;
 
+import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.ApplicationLogger;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -20,6 +22,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+
 
 import javax.xml.soap.Text;
 
@@ -71,7 +74,7 @@ public class MainMenuScreen implements Screen {
         help.addListener(new ChangeListener() {
 
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("clicked");
+
                 dispose();
                 game.setScreen(new HelpScreen(game));
 
@@ -80,12 +83,25 @@ public class MainMenuScreen implements Screen {
         highScore.addListener(new ChangeListener() {
 
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("clicked");
+
                 dispose();
-                game.setScreen(new GameOverScreen(game,42));
+                game.setScreen(new HighScoreScreen(game));
 
             }
         });
+
+        quit.addListener(new ChangeListener() {
+
+            public void changed(ChangeEvent event, Actor actor) {
+
+                dispose();
+
+                Gdx.app.exit();
+                System.exit(-1);
+
+            }
+        });
+
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -99,7 +115,7 @@ public class MainMenuScreen implements Screen {
 
 
 
-        Gdx.gl.glClearColor(0, 0.5f, 0.5f, 1);
+        Gdx.gl.glClearColor(100/255f, 127/255f, 127/255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 

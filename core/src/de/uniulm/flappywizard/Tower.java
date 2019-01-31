@@ -26,7 +26,7 @@ public class Tower extends Obstacle{
             this.texture= texture4;
         }
 
-        this.size=new Vector2(150,250* ((float)Math.random())+200);
+        this.size=new Vector2(150,250* ((float)Math.random())+180);
         this.position.y=0;
         this.hitbox=new Rectangle(this.getPosition().x,this.getPosition().y,this.size.x,this.size.y);
 
@@ -48,7 +48,7 @@ public class Tower extends Obstacle{
         else {
             this.texture= texture4;
         }
-        this.size.y=250* ((float)Math.random())+200;
+        this.size.y=250* ((float)Math.random())+180;
         this.position.x=this.position.x+3200;
         this.hitbox=new Rectangle(this.getPosition().x,this.getPosition().y,this.size.x,this.size.y);
 

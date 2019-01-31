@@ -47,6 +47,14 @@ public class GameOverScreen implements Screen {
 
         this.score=score;
         input.setAlignment(Align.center);
+        input.setTextFieldFilter(new TextField.TextFieldFilter() {
+            @Override
+            public boolean acceptChar(TextField textField, char c) {
+                if (c== ' '){
+                return false;}
+                return true;
+            }
+        });
 
         popUp.setPosition(1280/2-popUp.getWidth()/2,720/2-popUp.getHeight()/2);
         input.setPosition(1280/2-input.getWidth()/2,720/2-input.getHeight()/2);

@@ -35,7 +35,7 @@ public abstract   class Obstacle {
         this.hitbox.y=y;
     }
 
-    public void moveLeft (int x){
+    public void moveLeft (double x){
         this.position.x-=x;
         this.hitbox.x-=x;
     }

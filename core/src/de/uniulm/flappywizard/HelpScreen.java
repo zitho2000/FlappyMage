@@ -19,18 +19,21 @@ public class HelpScreen implements Screen {
     final FlappyWizardGame game;
 
     Stage stage = new Stage();
-    Image image = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/HelpScreen.png"))));
-    ImageButton back =new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/ZurückButton.png"))));
+    Image image;
+    ImageButton back;
 
     OrthographicCamera camera;
     public HelpScreen(final FlappyWizardGame game) {
         this.game =game;
        camera= new OrthographicCamera();
        camera.setToOrtho(false, 1280, 720);
+
+       back =new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/ZurückButton.png"))));
+       image = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/HelpScreen.png"))));
        stage.addActor(image);
        stage.addActor(back);
-       image.setPosition(camera.viewportWidth / 2 - image.getWidth() / 2, camera.viewportHeight / 2 - image.getHeight() / 2 );
-       back.setPosition(camera.viewportWidth-600,100);
+       image.setPosition(0,0);
+       back.setPosition(20,720-80);
 
 
        back.addListener(new ChangeListener(){
