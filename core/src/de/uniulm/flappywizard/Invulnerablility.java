@@ -6,7 +6,7 @@ public class Invulnerablility extends Item {
 
     public Invulnerablility(){
         super();
-        this.texture= new Texture("core/assets/png/item_gruen.png");
+        this.setTexture(new Texture("core/assets/png/item_gruen.png"));
     }
 
    public  void activate() {

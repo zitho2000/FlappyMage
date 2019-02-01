@@ -18,11 +18,12 @@ public class HelpScreen implements Screen {
 
     final FlappyWizardGame game;
 
-    Stage stage;
-    Image image;        //Hilfs-Erklärungen
-    ImageButton back;   //zurück-Button
+    private Stage stage;
+    private Image image;        //Hilfs-Erklärungen
+    private ImageButton back;   //zurück-Button
 
     OrthographicCamera camera;
+
     public HelpScreen(final FlappyWizardGame game) {
        this.game =game;
 

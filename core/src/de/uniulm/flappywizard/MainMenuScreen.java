@@ -20,12 +20,12 @@ public class MainMenuScreen implements Screen {
 
     OrthographicCamera camera;
 
-    ImageButton start;          //Start-Knopf
-    ImageButton highScore;      //Bestenliste-Knopf
-    ImageButton help;           //Hilfe-Knopf
-    ImageButton quit;           //Spiel verlassen-Knopf
+    private ImageButton start;          //Start-Knopf
+    private ImageButton highScore;      //Bestenliste-Knopf
+    private ImageButton help;           //Hilfe-Knopf
+    private ImageButton quit;           //Spiel verlassen-Knopf
 
-    Stage stage;
+    private Stage stage;
 
 
 

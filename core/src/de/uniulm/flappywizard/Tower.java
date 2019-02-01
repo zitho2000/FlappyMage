@@ -47,9 +47,9 @@ public class Tower extends Obstacle{
         this.hitted=false;
         int rng= (int) (Math.random()*4 +1);
         if (rng==1){
-            this.texture= texture1;}
+            this.setTexture( texture1);}
         else if (rng==2 ){
-            this.texture= texture2;}
+            this.texture=texture2;}
         else if (rng==3 ){
             this.texture=texture3;
         }

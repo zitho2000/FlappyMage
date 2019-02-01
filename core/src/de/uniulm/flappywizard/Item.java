@@ -7,10 +7,10 @@ import com.badlogic.gdx.math.Vector2;
 public abstract class Item {
 
 
-    private Vector2 position;   //Position
-     public Rectangle hitbox;   //treffbarer Rahmen
+     private Vector2 position;   //Position
+     private Rectangle hitbox;   //treffbarer Rahmen
      private Vector2 size;      //Größe
-     public Texture texture;    //Textur
+     private Texture texture;    //Textur
      public boolean active;     //Gegenstand aktiv/inaktiv
 
      public Item(){
@@ -40,5 +40,17 @@ public abstract class Item {
 
     public Vector2 getSize() {
         return size;
+    }
+
+    public Rectangle getHitbox() {
+        return hitbox;
+    }
+
+    public Texture getTexture() {
+        return texture;
+    }
+
+    public void setTexture(Texture texture) {
+        this.texture = texture;
     }
 }

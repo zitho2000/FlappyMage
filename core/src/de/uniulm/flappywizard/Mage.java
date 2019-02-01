@@ -12,8 +12,8 @@ public class Mage {
     private Vector2 position;   //Postion
     public boolean alive;       //Zauberer am Leben/tot
     private Vector2 size;       //Größe
-    public Rectangle hitbox;    //treffbarer Rahmen
-    public Texture texture;     //Textur
+    private Rectangle hitbox;    //treffbarer Rahmen
+    private Texture texture;     //Textur
 
 
 
@@ -64,5 +64,13 @@ public class Mage {
 
     public Vector2 getSize() {
         return size;
+    }
+
+    public Rectangle getHitbox() {
+        return hitbox;
+    }
+
+    public Texture getTexture() {
+        return texture;
     }
 }

@@ -7,7 +7,7 @@ public class Turbo extends Item {
 
     public Turbo(){
         super();
-        this.texture= new Texture("core/assets/png/item_rot.png");
+        this.setTexture(new Texture("core/assets/png/item_rot.png"));
     }
     public void activate() {
     this.active=true;

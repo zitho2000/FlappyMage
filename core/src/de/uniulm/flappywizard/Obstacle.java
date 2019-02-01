@@ -6,8 +6,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public abstract   class Obstacle {
     public Vector2 position;
-    Vector2 size;               //Größe
-    Rectangle hitbox;           //treffbarer Rahmen
+    public Vector2 size;               //Größe
+    public Rectangle hitbox;           //treffbarer Rahmen
     public Texture texture;     //Texture
     public boolean countet;     //bereits gezählt
     public boolean resizable;   //Größe veränderbar
@@ -42,4 +42,16 @@ public abstract   class Obstacle {
 
    abstract void reposition();
    abstract void resize(float height);
+
+    public Rectangle getHitbox() {
+        return hitbox;
+    }
+
+    public void setSize(Vector2 size) {
+        this.size = size;
+    }
+
+    public void setTexture(Texture texture) {
+        this.texture = texture;
+    }
 }

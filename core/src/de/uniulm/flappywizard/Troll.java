@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 public class Troll extends Item {
     public Troll(){
         super();
-        this.texture= new Texture("core/assets/png/item_blau.png");
+        this.setTexture( new Texture("core/assets/png/item_blau.png"));
     }
 
     public void activate(){

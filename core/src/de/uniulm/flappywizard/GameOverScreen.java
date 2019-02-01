@@ -29,12 +29,12 @@ public class GameOverScreen implements Screen {
 
     OrthographicCamera camera;
 
-    int score;                  //neuer Highscore
-    Stage stage;
-    BitmapFont textFieldFont;
-    Image popUp;                //Rahmen
-    TextField input;            //Eingabe-Feld
-    ImageButton ok;             //Bestätigungs-Button
+    private int score;                  //neuer Highscore
+    private Stage stage;
+    private BitmapFont textFieldFont;
+    private Image popUp;                //Rahmen
+    private TextField input;            //Eingabe-Feld
+    private ImageButton ok;             //Bestätigungs-Button
 
     public GameOverScreen(final FlappyWizardGame game, int score) {
         this.game=game;

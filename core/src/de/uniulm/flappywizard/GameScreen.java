@@ -27,27 +27,27 @@ public class GameScreen implements Screen {
 
     OrthographicCamera camera;
 
-    Mage mage ;     //Spielfigur
+    private Mage mage ;     //Spielfigur
 
     //obere Hindernisse
-    Dementor dementor1;
-    Dementor dementor2;
-    Dementor dementor3;
-    Dementor dementor4;
+    private Dementor dementor1;
+    private Dementor dementor2;
+    private Dementor dementor3;
+    private Dementor dementor4;
 
     //untere Hindernisse
-    Tower tower1;
-    Tower tower2;
-    Tower tower3;
-    Tower tower4;
+    private Tower tower1;
+    private Tower tower2;
+    private Tower tower3;
+    private Tower tower4;
 
     private BitmapFont scorelabel;      //Punkteanzeige
 
     //sammelbare Gegenstände
-    Troll troll;
-    DoublePoints doublePoints;
-    Invulnerablility invulnerablility;
-    Turbo turbo;
+    private Troll troll;
+    private DoublePoints doublePoints;
+    private Invulnerablility invulnerablility;
+    private Turbo turbo;
 
 
     public GameScreen(FlappyWizardGame game) {
@@ -166,7 +166,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        mage.texture.dispose();
+        mage.getTexture().dispose();
         tower1.texture.dispose();
         tower2.texture.dispose();
         tower3.texture.dispose();
@@ -175,6 +175,10 @@ public class GameScreen implements Screen {
         dementor2.texture.dispose();
         dementor3.texture.dispose();
         dementor4.texture.dispose();
+        invulnerablility.getTexture().dispose();
+        doublePoints.getTexture().dispose();
+        turbo.getTexture().dispose();
+        troll.getTexture().dispose();
 
     }
 
@@ -222,7 +226,7 @@ public class GameScreen implements Screen {
         obstacle.moveLeft(this.speed);
 
         //Kollision mit Zauberer
-        if (obstacle.hitbox.overlaps(mage.hitbox) && !obstacle.hitted) {
+        if (obstacle.hitbox.overlaps(mage.getHitbox()) && !obstacle.hitted) {
             obstacle.hitted = true;
             if (invulnerablility.active || turbo.active) {
                 invulnerablility.deactivate();
@@ -263,7 +267,7 @@ public class GameScreen implements Screen {
         item.moveLeft(this.speed);
 
         //Kollisionsbehandlung mit Zauberer
-        if (item.hitbox.overlaps(mage.hitbox)) {
+        if (item.getHitbox().overlaps(mage.getHitbox())) {
             System.out.println("collected");
             counter = 0;
             item.activate();
@@ -271,7 +275,7 @@ public class GameScreen implements Screen {
         }
         if (counter <= 5) {
 
-            if (item.hitbox.overlaps(new Rectangle(1280, 0, 50, 720))) {
+            if (item.getHitbox().overlaps(new Rectangle(1280, 0, 50, 720))) {
                 spawn(item);
             }
         } else {
@@ -279,7 +283,7 @@ public class GameScreen implements Screen {
         }
 
         //neues Item spawnen, wenn nicht eingesammelt
-        if (item.hitbox.overlaps(new Rectangle(-100, 0, 50, 720)) || item.hitbox.overlaps(mage.hitbox)) {
+        if (item.getHitbox().overlaps(new Rectangle(-100, 0, 50, 720)) || item.getHitbox().overlaps(mage.getHitbox())) {
             item.setPosition(1000000, 1000000);
             int rng = (int) (Math.random() * 4) + 1;
             if (rng == 1) {
@@ -300,7 +304,7 @@ public class GameScreen implements Screen {
     //spawnt ein item
     void spawn(Item item) {
         item.setPosition((float) Math.random() * 1280 + 1500, (float) Math.random() * 620 + 50);
-        if (item.hitbox.overlaps(dementor1.hitbox) || item.hitbox.overlaps(dementor1.hitbox) || item.hitbox.overlaps(dementor2.hitbox) || item.hitbox.overlaps(dementor3.hitbox) || item.hitbox.overlaps(dementor4.hitbox) || item.hitbox.overlaps(tower1.hitbox) || item.hitbox.overlaps(tower2.hitbox) || item.hitbox.overlaps(tower3.hitbox) || item.hitbox.overlaps(tower4.hitbox)) {
+        if (item.getHitbox().overlaps(dementor1.hitbox) || item.getHitbox().overlaps(dementor1.hitbox) || item.getHitbox().overlaps(dementor2.hitbox) || item.getHitbox().overlaps(dementor3.hitbox) || item.getHitbox().overlaps(dementor4.hitbox) || item.getHitbox().overlaps(tower1.hitbox) || item.getHitbox().overlaps(tower2.hitbox) || item.getHitbox().overlaps(tower3.hitbox) || item.getHitbox().overlaps(tower4.hitbox)) {
             spawn(item);
         }
     }
@@ -344,7 +348,7 @@ public class GameScreen implements Screen {
 
     //Gegenstand malen
     void drawItem(Item item) {
-        game.batch.draw(item.texture
+        game.batch.draw(item.getTexture()
                 , item.getPosition().x
                 , item.getPosition().y
                 , item.getSize().x
@@ -354,7 +358,7 @@ public class GameScreen implements Screen {
 
     //Zauberer malen
     void drawWizard(Mage wizard) {
-        game.batch.draw(wizard.texture
+        game.batch.draw(wizard.getTexture()
                 , wizard.getPosition().x
                 , wizard.getPosition().y
                 , wizard.getSize().x

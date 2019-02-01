@@ -25,13 +25,13 @@ public class HighScoreScreen implements Screen {
     final FlappyWizardGame game;
     OrthographicCamera camera;
 
-    Stage stage;
-    Label nameLabel;        //Namensanzeige
-    Label scoreLabel;       //erreichte Punkte
-    Image gimage;           //Gold-Medaille
-    Image simage;           //Silber-Medaille
-    Image bimage;           //Bronze-Medaille
-    ImageButton back;       //zurück-Button
+    private Stage stage;
+    private Label nameLabel;        //Namensanzeige
+    private Label scoreLabel;       //erreichte Punkte
+    private Image gimage;           //Gold-Medaille
+    private Image simage;           //Silber-Medaille
+    private Image bimage;           //Bronze-Medaille
+    private ImageButton back;       //zurück-Button
 
     public HighScoreScreen(final FlappyWizardGame game) {
         this.game=game;
