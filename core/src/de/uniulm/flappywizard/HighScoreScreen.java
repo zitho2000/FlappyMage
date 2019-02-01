@@ -128,4 +128,6 @@ public class HighScoreScreen implements Screen {
     public void dispose() {
         stage.dispose();
     }
+
+
 }

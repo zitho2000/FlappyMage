@@ -66,6 +66,7 @@ public class Tower extends Obstacle {
             this.size.y = height;
             this.hitbox = new Rectangle(this.getPosition().x, this.getPosition().y, this.size.x, this.size.y);
             this.resizable = true;
+
         }
     }
 }
