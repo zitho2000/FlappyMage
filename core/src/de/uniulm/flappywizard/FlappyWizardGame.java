@@ -23,7 +23,7 @@ public class FlappyWizardGame extends Game {
 		batch = new SpriteBatch();
 
 		
-		hermine = new Texture("core/assets/png/hermine.png");
+
 
 		
 		harry = new Texture("core/assets/png/harry.png");
