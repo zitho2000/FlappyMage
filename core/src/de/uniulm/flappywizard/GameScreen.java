@@ -18,16 +18,16 @@ public class GameScreen implements Screen {
     public final FlappyWizardGame game;
 
     public double speed;
-    public int gravity ;
-    public float counter ;
-    public int score ;
-    public int smoothJump ;
+    public int gravity;
+    public float counter;
+    public int score;
+    public int smoothJump;
     public double faster;
 
 
     OrthographicCamera camera;
 
-    private Mage mage ;     //Spielfigur
+    private Mage mage;     //Spielfigur
 
     //obere Hindernisse
     private Dementor dementor1;
@@ -247,8 +247,8 @@ public class GameScreen implements Screen {
         if (troll.active) {
             obstacle.resize(obstacle.size.y * 1.2f);
         }
-        if(counter>5 ){
-            obstacle.resizable=true;
+        if (counter > 5) {
+            obstacle.resizable = true;
         }
 
         //Zähler für score etc.

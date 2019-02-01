@@ -3,17 +3,17 @@ package de.uniulm.flappywizard;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Troll extends Item {
-    public Troll(){
+    public Troll() {
         super();
-        this.setTexture( new Texture("core/assets/png/item_blau.png"));
+        this.setTexture(new Texture("core/assets/png/item_blau.png"));
     }
 
-    public void activate(){
+    public void activate() {
 
-        this.active=true;
+        this.active = true;
     }
 
-    public void deactivate(){
-        this.active= false;
+    public void deactivate() {
+        this.active = false;
     }
 }

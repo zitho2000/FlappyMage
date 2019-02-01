@@ -25,29 +25,29 @@ public class HelpScreen implements Screen {
     OrthographicCamera camera;
 
     public HelpScreen(final FlappyWizardGame game) {
-       this.game =game;
+        this.game = game;
 
-       camera= new OrthographicCamera();
-       camera.setToOrtho(false, 1280, 720);
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false, 1280, 720);
 
 
-       stage = new Stage();
-       back =new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/ZurückButton.png"))));
-       image = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/HelpScreen.png"))));
-       stage.addActor(image);
-       stage.addActor(back);
-       image.setPosition(0,0);
-       back.setPosition(20,720-80);
+        stage = new Stage();
+        back = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/ZurückButton.png"))));
+        image = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/HelpScreen.png"))));
+        stage.addActor(image);
+        stage.addActor(back);
+        image.setPosition(0, 0);
+        back.setPosition(20, 720 - 80);
 
-       //zurück-Button geklickt
-       back.addListener(new ChangeListener(){
-           public void changed(ChangeEvent event, Actor actor){
-               dispose();
-               game.setScreen(new MainMenuScreen(game));
-           }
-       });
+        //zurück-Button geklickt
+        back.addListener(new ChangeListener() {
+            public void changed(ChangeEvent event, Actor actor) {
+                dispose();
+                game.setScreen(new MainMenuScreen(game));
+            }
+        });
 
-       Gdx.input.setInputProcessor(stage);
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
@@ -85,6 +85,7 @@ public class HelpScreen implements Screen {
     }
 
     @Override
-    public void dispose() {stage.dispose();
+    public void dispose() {
+        stage.dispose();
     }
 }

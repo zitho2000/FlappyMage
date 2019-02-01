@@ -4,15 +4,16 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Invulnerablility extends Item {
 
-    public Invulnerablility(){
+    public Invulnerablility() {
         super();
         this.setTexture(new Texture("core/assets/png/item_gruen.png"));
     }
 
-   public  void activate() {
-       this.active=true;
+    public void activate() {
+        this.active = true;
     }
-    public void deactivate(){
-        this.active= false;
+
+    public void deactivate() {
+        this.active = false;
     }
 }

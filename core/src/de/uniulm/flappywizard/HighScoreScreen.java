@@ -34,49 +34,50 @@ public class HighScoreScreen implements Screen {
     private ImageButton back;       //zurück-Button
 
     public HighScoreScreen(final FlappyWizardGame game) {
-        this.game=game;
+        this.game = game;
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1280, 720);
 
-        stage=new Stage();
+        stage = new Stage();
 
 
         //Highscore-Daten auslesen
-        String[] first=new String [2];
-        String[] second=new String [2];
-        String[] third=new String [2];
-        try{
-            BufferedReader rb =new BufferedReader(new FileReader("core/Highscore.txt"));
-             first= rb.readLine().split(" ");
-             second= rb.readLine().split(" ");
-             third= rb.readLine().split(" ");
+        String[] first = new String[2];
+        String[] second = new String[2];
+        String[] third = new String[2];
+        try {
+            BufferedReader rb = new BufferedReader(new FileReader("core/Highscore.txt"));
+            first = rb.readLine().split(" ");
+            second = rb.readLine().split(" ");
+            third = rb.readLine().split(" ");
 
-        }catch (IOException e){}
+        } catch (IOException e) {
+        }
 
 
         //Highscore-Daten aufschreiben
         BitmapFont font = new BitmapFont();
         font.getData().setScale(5);
-        nameLabel=new Label("Name"+"\r\n\n"+first[0]+"\r\n\n"+second[0]+"\r\n\n"+third[0],new Label.LabelStyle(font, Color.WHITE));
-        nameLabel.setPosition(1280/2-nameLabel.getPrefWidth()/2-150,720/2-nameLabel.getPrefHeight()/2);
-        scoreLabel=new Label("Score"+"\r\n\n"+first[1]+"\r\n\n"+second[1]+"\r\n\n"+third[1],new Label.LabelStyle(font, Color.WHITE));
-        scoreLabel.setPosition(1280/2-nameLabel.getPrefWidth()/2+350,720/2-nameLabel.getPrefHeight()/2);
+        nameLabel = new Label("Name" + "\r\n\n" + first[0] + "\r\n\n" + second[0] + "\r\n\n" + third[0], new Label.LabelStyle(font, Color.WHITE));
+        nameLabel.setPosition(1280 / 2 - nameLabel.getPrefWidth() / 2 - 150, 720 / 2 - nameLabel.getPrefHeight() / 2);
+        scoreLabel = new Label("Score" + "\r\n\n" + first[1] + "\r\n\n" + second[1] + "\r\n\n" + third[1], new Label.LabelStyle(font, Color.WHITE));
+        scoreLabel.setPosition(1280 / 2 - nameLabel.getPrefWidth() / 2 + 350, 720 / 2 - nameLabel.getPrefHeight() / 2);
 
         //Medaillen erstellen
-        gimage=new Image(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/Goldmedall.png"))));
-        simage=new Image(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/Silvermedall.png"))));
-        bimage=new Image(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/Bronzemedall.png"))));
-        gimage.setPosition(1280/2-600,720/2+40);
-        simage.setPosition(1280/2-600,720/2-150);
-        bimage.setPosition(1280/2-600,720/2-310);
+        gimage = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/Goldmedall.png"))));
+        simage = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/Silvermedall.png"))));
+        bimage = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/Bronzemedall.png"))));
+        gimage.setPosition(1280 / 2 - 600, 720 / 2 + 40);
+        simage.setPosition(1280 / 2 - 600, 720 / 2 - 150);
+        bimage.setPosition(1280 / 2 - 600, 720 / 2 - 310);
 
-        back =new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/ZurückButton.png"))));
-        back.setPosition(20,720-80);
+        back = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/ZurückButton.png"))));
+        back.setPosition(20, 720 - 80);
 
         //zurück-Button geklickt
-        back.addListener(new ChangeListener(){
-            public void changed(ChangeEvent event, Actor actor){
+        back.addListener(new ChangeListener() {
+            public void changed(ChangeEvent event, Actor actor) {
                 dispose();
                 game.setScreen(new MainMenuScreen(game));
             }
@@ -98,7 +99,7 @@ public class HighScoreScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(100/255f, 127/255f, 127/255f, 1);
+        Gdx.gl.glClearColor(100 / 255f, 127 / 255f, 127 / 255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.draw();
     }

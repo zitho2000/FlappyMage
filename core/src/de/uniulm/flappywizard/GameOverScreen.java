@@ -37,32 +37,33 @@ public class GameOverScreen implements Screen {
     private ImageButton ok;             //Bestätigungs-Button
 
     public GameOverScreen(final FlappyWizardGame game, int score) {
-        this.game=game;
+        this.game = game;
 
-        camera= new OrthographicCamera();
+        camera = new OrthographicCamera();
         camera.setToOrtho(false, 1280, 720);
 
-        this.stage=new Stage();
-        this.textFieldFont= new BitmapFont();
-        this.ok =new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/OkButton.png"))));
-        this.popUp=new Image(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/HighscorePopup.png"))));
-        this.input =new TextField("",new TextField.TextFieldStyle(textFieldFont,Color.BLACK,new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/cursor.png"))),null,new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/Textfield.png")))));
+        this.stage = new Stage();
+        this.textFieldFont = new BitmapFont();
+        this.ok = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/OkButton.png"))));
+        this.popUp = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/HighscorePopup.png"))));
+        this.input = new TextField("", new TextField.TextFieldStyle(textFieldFont, Color.BLACK, new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/cursor.png"))), null, new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/Textfield.png")))));
 
-        this.score=score;
+        this.score = score;
         this.input.setAlignment(Align.center);
         this.input.setTextFieldFilter(new TextField.TextFieldFilter() {
             @Override
             public boolean acceptChar(TextField textField, char c) {
-                if (c== ' '){
-                return false;}
+                if (c == ' ') {
+                    return false;
+                }
                 return true;
             }
         });
         this.input.setMaxLength(15);
 
-        popUp.setPosition(1280/2-popUp.getWidth()/2,720/2-popUp.getHeight()/2);
-        input.setPosition(1280/2-input.getWidth()/2,720/2-input.getHeight()/2);
-        ok.setPosition(1280/2-ok.getWidth()/2,720/2-ok.getHeight()*2);
+        popUp.setPosition(1280 / 2 - popUp.getWidth() / 2, 720 / 2 - popUp.getHeight() / 2);
+        input.setPosition(1280 / 2 - input.getWidth() / 2, 720 / 2 - input.getHeight() / 2);
+        ok.setPosition(1280 / 2 - ok.getWidth() / 2, 720 / 2 - ok.getHeight() * 2);
         stage.addActor(popUp);
         stage.addActor(input);
         stage.addActor(ok);
@@ -70,8 +71,8 @@ public class GameOverScreen implements Screen {
 
 
         //OK-Button geklickt
-        ok.addListener(new ChangeListener(){
-            public void changed(ChangeEvent event, Actor actor){
+        ok.addListener(new ChangeListener() {
+            public void changed(ChangeEvent event, Actor actor) {
                 changeHighscore(input.getText());
                 dispose();
                 game.setScreen(new MainMenuScreen(game));
@@ -87,7 +88,7 @@ public class GameOverScreen implements Screen {
     @Override
     public void render(float delta) {
 
-        Gdx.gl.glClearColor(100/255f, 127/255f, 127/255f, 1);
+        Gdx.gl.glClearColor(100 / 255f, 127 / 255f, 127 / 255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.draw();
@@ -115,31 +116,32 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void dispose() {
-    stage.dispose();
+        stage.dispose();
     }
 
 
     //Highscore-Liste ändern und speichern
-    void changeHighscore(String name){
+    void changeHighscore(String name) {
         try {
 
 
             BufferedReader br = new BufferedReader(new FileReader("core/Highscore.txt"));
-            String Text="";
-            String erster=br.readLine();
-            String zweiter=br.readLine();
-             if (Integer.parseInt(erster.split(" ")[1])<score) {
-                 Text=Text+name+" "+score+"\r\n"+erster+"\r\n"+zweiter;
-             }else if (Integer.parseInt(zweiter.split(" ")[1])<score) {
-                Text=Text+erster+"\r\n"+name+" "+score+"\r\n"+zweiter;
-             }else {
-                 Text=Text+erster+"\r\n"+zweiter+"\r\n"+name+" "+score;
-             }
+            String Text = "";
+            String erster = br.readLine();
+            String zweiter = br.readLine();
+            if (Integer.parseInt(erster.split(" ")[1]) < score) {
+                Text = Text + name + " " + score + "\r\n" + erster + "\r\n" + zweiter;
+            } else if (Integer.parseInt(zweiter.split(" ")[1]) < score) {
+                Text = Text + erster + "\r\n" + name + " " + score + "\r\n" + zweiter;
+            } else {
+                Text = Text + erster + "\r\n" + zweiter + "\r\n" + name + " " + score;
+            }
             System.out.println(Text);
-            PrintWriter pw=new PrintWriter("core/Highscore.txt");
+            PrintWriter pw = new PrintWriter("core/Highscore.txt");
             pw.print(Text);
             pw.flush();
-        } catch (IOException e){}
+        } catch (IOException e) {
         }
     }
+}
 

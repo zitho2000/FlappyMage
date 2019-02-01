@@ -28,9 +28,6 @@ public class MainMenuScreen implements Screen {
     private Stage stage;
 
 
-
-
-
     public MainMenuScreen(final FlappyWizardGame game) {
         this.game = game;
 
@@ -39,10 +36,10 @@ public class MainMenuScreen implements Screen {
 
         this.stage = new Stage();
 
-        this.start =new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/SpielStartenButton.png"))));
-        this.highScore =new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/HighScoreButton.png"))));
-        this.help =new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/HilfeButton.png"))));
-        this.quit =new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/SpielBeenden.png"))));
+        this.start = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/SpielStartenButton.png"))));
+        this.highScore = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/HighScoreButton.png"))));
+        this.help = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/HilfeButton.png"))));
+        this.quit = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("core/assets/png/SpielBeenden.png"))));
 
         stage.addActor(start);
         stage.addActor(highScore);
@@ -106,12 +103,10 @@ public class MainMenuScreen implements Screen {
     }
 
 
-
-
     @Override
     public void render(float delta) {
 
-        Gdx.gl.glClearColor(100/255f, 127/255f, 127/255f, 1);
+        Gdx.gl.glClearColor(100 / 255f, 127 / 255f, 127 / 255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.draw();
